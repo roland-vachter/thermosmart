@@ -83,7 +83,7 @@ gulp.task('bower-folder-clean', function (callback) {
 	del(['./bower_components'], callback);
 });
 
-gulp.task('bower-clean', ['bower-cache-clean', 'bower-folder-clean']);
+gulp.task('bower-clean', ['bower-cache-clean']);
 
 gulp.task('clean-build', function (callback) {
 	del([buildFolder], callback);
@@ -91,7 +91,7 @@ gulp.task('clean-build', function (callback) {
 
 
 const webpackConfig = {
-    devtool: 'source-map', 
+    devtool: 'source-map',
     module: {
         loaders: [
             {
