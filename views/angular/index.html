@@ -1,0 +1,87 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-6 col-lg-4">
+		<div class="thermo-component thermo-status">
+			<div class="thermo-status--outside">
+				<div class="thermo-status--value thermo-status--temp">
+					<i class="icon-thermometer6"></i> <span ng-bind-html="outsideTemp | float"></span>
+				</div>
+
+				<div class="thermo-status--value thermo-status--humi">
+					<i class="icon-humidity"></i> <span ng-bind-html="outsideHumi | float"></span>
+				</div>
+			</div>
+
+			<div class="thermo-status--inside">
+				<i class="icon-house-simple thermo-status--house-icon"></i>
+
+				<i class="icon-air-conditioner-3 thermo-status--icon thermo-status--icon-on"></i>
+				<div class="thermo-status--value thermo-status--temp">
+					<i class="icon-thermometer6"></i> <span ng-bind-html="insideTemp | float"></span>
+				</div>
+
+				<div class="thermo-status--value thermo-status--humi">
+					<i class="icon-humidity"></i> <span ng-bind-html="insideHumi | float"></span>
+				</div>
+			</div>
+		</div>
+
+		<div class="thermo-component thermo-target">
+			<div class="thermo-target--control">
+				<button type="button" class="thermo-target--button thermo-target--decrease">-</button>
+				<span class="thermo-target--value"><span ng-bind-html="target | float"></span> &deg;C</span>
+				<button type="button" class="thermo-target--button thermo-target--increase">+</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-12 col-sm-6 col-lg-4">
+		<div class="thermo-component thermo-plan">
+			<div class="thermo-plan--pointer">
+				<i class="icon-right-arrow-2" style="top: {{percentInDay}}%;"></i>
+			</div>
+
+			<div class="thermo-plan--labels">
+				<div class="thermo-plan--label" style="top: 25%">6:00</div>
+				<div class="thermo-plan--label" style="top: 37.5%">9:00</div>
+				<div class="thermo-plan--label" style="top: 75%">18:00</div>
+				<div class="thermo-plan--label" style="top: 95.8%">23:00</div>
+			</div>
+
+			<div class="thermo-plan--chart clearfix">
+				<div class="thermo-plan--period thermo-plan--period-night clearfix" style="height: 25%;">
+					<i class="icon-night"></i>
+				</div>
+				<div class="thermo-plan--period thermo-plan--period-home clearfix" style="height: 12.5%;">
+					<i class="icon-sun"></i>
+				</div>
+				<div class="thermo-plan--period thermo-plan--period-away clearfix" style="height: 37.5%;">
+					<i class="icon-away"></i>
+				</div>
+				<div class="thermo-plan--period thermo-plan--period-home clearfix" style="height: 20.8%;">
+					<i class="icon-sun"></i>
+				</div>
+				<div class="thermo-plan--period thermo-plan--period-night clearfix" style="height: 4.2%;">
+					<i class="icon-night"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-12 col-sm-12 col-lg-4">
+		<div class="thermo-component">
+			<h2>Temperatures</h2>
+			<div class="thermo-temps row">
+				#temps
+					<div class="thermo-temps--temp col-xs-6 col-lg-12 color-{{color}}">
+						<i class="{{iconClass}}"></i> <span class="thermo-temps--temp-name">name</span>
+						<div class="thermo-temps--temp-control">
+							<button type="button" class="thermo-temps--temp-button thermo-temps--temp--decrease">-</button>
+							<span class="thermo-temps--temp-value">value &deg;C</span>
+							<button type="button" class="thermo-temps--temp-button thermo-temps--temp--increase">+</button>
+						</div>
+					</div>
+				/temps
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,5 @@
+@import '../../build_config/scss/assetsDomain';
+@import '../../build_config/scss/fingerprint';
+
+$assets-in-app-global-path: $assets-domain + '/assets/' + $fingerprint + '/';
+$assets-bower-global-path: $assets-domain + '/assets/bower/' + $fingerprint + '/';

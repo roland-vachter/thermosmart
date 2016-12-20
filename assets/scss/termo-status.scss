@@ -1,0 +1,80 @@
+.thermo-status {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.thermo-status--house-icon {
+	font-size: 220px;
+	font-weight: 50;
+	color: $gray;
+}
+
+.thermo-status--icon {
+	position: absolute;
+	left: 86px;
+	top: 30px;
+	font-size: 45px;
+
+	&.thermo-status--icon-on {
+		color: $green;
+	}
+
+	&.thermo-status--icon-off {
+		color: $gray;
+	}
+}
+
+.thermo-status--value {
+	font-size: 35px;
+	font-weight: bold;
+
+	.decimal {
+		font-size: 20px;
+	}
+
+	i {
+		font-size: 30px;
+	}
+}
+
+.thermo-status--inside {
+	position: relative;
+	display: inline-block;
+
+	.thermo-status--value {
+		position: absolute;
+		left: 60px;
+	}
+
+	.thermo-status--temp {
+		top: 80px;
+		color: $orange;
+	}
+
+	.thermo-status--humi {
+		color: $teal;
+		top: 150px;
+	}
+}
+
+.thermo-status--outside {
+	display: inline-block;
+	font-size: 25px;
+	padding-right: 10px;
+
+	.decimal {
+		font-size: 15px;
+	}
+
+	i {
+		font-size: 30px;
+	}
+
+	.thermo-status--temp {
+		color: $maroon;
+	}
+
+	.thermo-status--humi {
+		color: $navy;
+	}
+}

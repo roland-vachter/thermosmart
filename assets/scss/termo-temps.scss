@@ -1,0 +1,22 @@
+.thermo-temps--temp {
+	font-size: 20px;
+	text-align: center;
+	margin-bottom: 20px;
+	font-weight: bold;
+	vertical-align: middle;
+
+	i {
+		font-size: 25px;
+		vertical-align: middle;
+	}
+}
+
+.thermo-temps--temp-button {
+	border: 0;
+	background: none;
+	color: $gray;
+}
+
+.thermo-temps--temp-name {
+	vertical-align: middle;
+}

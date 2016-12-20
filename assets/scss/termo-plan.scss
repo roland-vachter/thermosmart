@@ -1,0 +1,92 @@
+.thermo-plan {
+	height: 400px;
+	max-width: 250px;
+	margin: 0 auto;
+}
+
+.thermo-plan--chart {
+	margin-left: 50px;
+	margin-right: 50px;
+	height: 100%;
+}
+
+.thermo-plan--period {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	line-height: 18px;
+	padding: 3px;
+	overflow: hidden;
+	box-sizing: border-box;
+	border: 3px solid;
+	border-top-width: 0;
+
+	i {
+		font-size: 30px;
+		color: $black;
+	}
+
+	&:first-child {
+		border-top-width: 3px;
+	}
+}
+
+.thermo-plan--period-night {
+	border-color: $gray;
+	background: rgba($gray, 0.05);
+
+	i {
+		color: $gray;
+	}
+}
+
+.thermo-plan--period-home {
+	border-color: $olive;
+	background: rgba($olive, 0.05);
+
+	i {
+		color: $olive;
+	}
+}
+
+.thermo-plan--period-away {
+	border-color: $orange;
+	background: rgba($orange, 0.05);
+
+	i {
+		color: $orange;
+	}
+}
+
+.thermo-plan--labels {
+	position: relative;
+	width: 40px;
+	height: 100%;
+	margin-top: 5px;
+	margin-left: 10px;
+	float: right;
+}
+
+.thermo-plan--label {
+	position: absolute;
+	left: 0;
+	margin-top: -14px;
+	color: $black;
+	font-weight: bold;
+}
+
+.thermo-plan--pointer {
+	position: relative;
+	width: 25px;
+	height: 100%;
+	float: left;
+	margin-left: 25px;
+
+	i {
+		position: absolute;
+		left: 0;
+		font-size: 20px;
+		margin-top: -10px;
+	}
+}
