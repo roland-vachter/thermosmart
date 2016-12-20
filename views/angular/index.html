@@ -71,16 +71,16 @@
 		<div class="thermo-component">
 			<h2>Temperatures</h2>
 			<div class="thermo-temps row">
-				#temps
-					<div class="thermo-temps--temp col-xs-6 col-lg-12 color-{{color}}">
-						<i class="{{iconClass}}"></i> <span class="thermo-temps--temp-name">name</span>
+				<div class="thermo-temps--temp col-xs-6 col-lg-12" ng-repeat="temp in temps">
+					<div class="color-{{temp.color}}">
+						<i class="{{temp.iconClass}}"></i> <span class="thermo-temps--temp-name">{{temp.name}}</span>
 						<div class="thermo-temps--temp-control">
 							<button type="button" class="thermo-temps--temp-button thermo-temps--temp--decrease">-</button>
-							<span class="thermo-temps--temp-value">value &deg;C</span>
+							<span class="thermo-temps--temp-value"><span ng-bind-html="temp.value | float"></span> &deg;C</span>
 							<button type="button" class="thermo-temps--temp-button thermo-temps--temp--increase">+</button>
 						</div>
 					</div>
-				/temps
+				</div>
 			</div>
 		</div>
 	</div>

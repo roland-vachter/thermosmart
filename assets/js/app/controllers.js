@@ -21,11 +21,16 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	$scope.outsideTemp = 0;
 	$scope.outsideHumi = 0;
 
+	$scope.temps = [];
+
 	$http.get('/api/init').then((response) => {
-		console.log(response.data);
 		if (response.data) {
+			console.log(response.data);
+
 			$scope.outsideTemp = response.data.outside.temperature;
 			$scope.outsideHumi = response.data.outside.humidity;
+
+			$scope.temps = response.data.temperatures;
 		}
 	}, (err) => {
 		console.log(err);
@@ -35,6 +40,9 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	setInterval(getPercentInDay, 60000);
 
 	socketio.on('update', (data) => {
-		console.log(data);
+		if (data.outside) {
+			$scope.outsideTemp = data.outside.temperature;
+			$scope.outsideHumi = data.outside.humidity;
+		}
 	});
 }]);
