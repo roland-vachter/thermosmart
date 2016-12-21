@@ -66,7 +66,7 @@ const updateView = function ($scope) {
 	$scope.percentInDay = getPercentInDay();
 	$scope.currentTime = `${pad(d.getHours(), 2)}:${pad(d.getMinutes(), 2)}`;
 
-	$scope.targetTemp = getCurrentTemp($scope.todaysPlan);
+	$scope.targetTemp = getCurrentTemp($scope.todaysPlan.plan.ref);
 };
 
 module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', function ($scope, $http, socketio, loginStatus) {
@@ -74,10 +74,15 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 
 	$scope.targetTemp = 0;
 
-	$scope.insideTemp = 22.3;
-	$scope.insideHumi = 55.4;
-	$scope.outsideTemp = 0;
-	$scope.outsideHumi = 0;
+	$scope.inside = {
+		temp: 22.3,
+		humi: 55.4
+	};
+
+	$scope.outside = {
+		temp: 0,
+		humi: 0
+	};
 
 	$scope.temps = {};
 	$scope.heatingPlans = {};
@@ -88,33 +93,60 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 
 	const dayNameByIndex = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-	$http.get('/api/init').then((response) => {
-		if (response.data && response.data.data) {
-			const data = response.data.data;
 
-			$scope.outsideTemp = data.outside.temperature;
-			$scope.outsideHumi = data.outside.humidity;
+	const handleServerData = function (data) {
+		if (data.outside) {
+			$scope.outside.temp = data.outside.temperature;
+			$scope.outside.humi = data.outside.humidity;
+		}
 
+		if (data.temperatures) {
 			data.temperatures.forEach(temp => {
-				$scope.temps[temp._id] = temp;
-			});
+				if (!$scope.temps[temp._id]) {
+					$scope.temps[temp._id] = {};
+				}
 
+				$scope.temps[temp._id].ref = temp;
+			});
+		}
+
+		if (data.heatingPlans) {
 			data.heatingPlans.forEach(heatingPlan => {
-				$scope.heatingPlans[heatingPlan._id] = heatingPlan;
+				if (!$scope.heatingPlans[heatingPlan._id]) {
+					$scope.heatingPlans[heatingPlan._id] = {};
+				}
+
+				$scope.heatingPlans[heatingPlan._id].ref = heatingPlan;
+
 				heatingPlan.intervals.forEach(override => {
 					override.temp = $scope.temps[override.temp];
 				});
 
 				processPlanForDisplay(heatingPlan);
 			});
+		}
 
+		if (data.heatingDefaultPlans) {
 			data.heatingDefaultPlans.forEach(heatingPlan => {
+				if (!$scope.heatingDefaultPlans[heatingPlan.dayOfWeek]) {
+					$scope.heatingDefaultPlans[heatingPlan.dayOfWeek] = {};
+				}
+
 				$scope.heatingDefaultPlans[heatingPlan.dayOfWeek] = heatingPlan;
+
 				heatingPlan.plan = $scope.heatingPlans[heatingPlan.plan];
 				heatingPlan.nameOfDay = dayNameByIndex[heatingPlan.dayOfWeek];
 			});
+		}
+	};
 
-			$scope.todaysPlan = $scope.heatingDefaultPlans[new Date().getDay()].plan;
+	$http.get('/api/init').then((response) => {
+		if (response.data && response.data.data) {
+			const data = response.data.data;
+
+			handleServerData(data);
+
+			$scope.todaysPlan = $scope.heatingDefaultPlans[new Date().getDay()];
 
 			updateView($scope);
 			setInterval(() => {
@@ -127,20 +159,15 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 		console.log(err);
 	});
 
-	socketio.on('update', (data) => {
-		if (data.outside) {
-			$scope.outsideTemp = data.outside.temperature;
-			$scope.outsideHumi = data.outside.humidity;
-		}
-	});
+	socketio.on('update', handleServerData);
 
 	$scope.tempAdjust = function (id, value) {
-		$scope.temps[id].value += value;
-		$scope.temps[id].value = parseFloat($scope.temps[id].value.toFixed(1));
+		$scope.temps[id].ref.value += value;
+		$scope.temps[id].ref.value = parseFloat($scope.temps[id].ref.value.toFixed(1));
 
 		$http.post('/api/tempadjust', {
 			_id: id,
-			value: $scope.temps[id].value
+			value: $scope.temps[id].ref.value
 		});
 	}
 

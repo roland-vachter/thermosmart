@@ -3,11 +3,11 @@
 		<div class="thermo-component thermo-status">
 			<div class="thermo-status--outside">
 				<div class="thermo-status--value thermo-status--temp">
-					<i class="icon-thermometer6"></i> <span ng-bind-html="outsideTemp | float"></span>
+					<i class="icon-thermometer6"></i> <span ng-bind-html="outside.temp | float"></span>
 				</div>
 
 				<div class="thermo-status--value thermo-status--humi">
-					<i class="icon-humidity"></i> <span ng-bind-html="outsideHumi | float"></span>
+					<i class="icon-humidity"></i> <span ng-bind-html="outside.humi | float"></span>
 				</div>
 			</div>
 
@@ -16,41 +16,41 @@
 
 				<i class="icon-air-conditioner-3 thermo-status--icon color-{{heatingOn ? 'olive' : 'gray'}}"></i>
 				<div class="thermo-status--value thermo-status--temp">
-					<i class="icon-thermometer6"></i> <span ng-bind-html="insideTemp | float"></span>
+					<i class="icon-thermometer6"></i> <span ng-bind-html="inside.temp | float"></span>
 				</div>
 
 				<div class="thermo-status--value thermo-status--humi">
-					<i class="icon-humidity"></i> <span ng-bind-html="insideHumi | float"></span>
+					<i class="icon-humidity"></i> <span ng-bind-html="inside.humi | float"></span>
 				</div>
 			</div>
 		</div>
 
 		<div class="thermo-component thermo-target">
 			<div class="thermo-target--control">
-				<button type="button" class="thermo-target--button thermo-target--decrease" ng-click="scope().tempAdjust(targetTemp._id, -0.1)">-</button>
-				<span class="thermo-target--value color-{{targetTemp.color}}"><span ng-bind-html="targetTemp.value | float"></span> &deg;C</span>
-				<button type="button" class="thermo-target--button thermo-target--increase" ng-click="scope().tempAdjust(targetTemp._id, 0.1)">+</button>
+				<button type="button" class="thermo-target--button thermo-target--decrease" ng-click="scope().tempAdjust(targetTemp.ref._id, -0.1)">-</button>
+				<span class="thermo-target--value color-{{targetTemp.ref.color}}"><span ng-bind-html="targetTemp.ref.value | float"></span> &deg;C</span>
+				<button type="button" class="thermo-target--button thermo-target--increase" ng-click="scope().tempAdjust(targetTemp.ref._id, 0.1)">+</button>
 			</div>
 		</div>
 	</div>
 
 	<div class="col-xs-12 col-sm-6 col-lg-4">
-		<h3>{{todaysPlan.name}}</h3>
+		<h3>{{todaysPlan.ref.name}}</h3>
 		<div class="thermo-component thermo-plan">
 			<div class="thermo-plan--current-time" style="top: {{percentInDay}}%;">
 				{{currentTime}}
 			</div>
 
 			<div class="thermo-plan--labels">
-				<div class="thermo-plan--label" ng-repeat="interval in todaysPlan.intervals" style="top: {{interval.labelPosition}}%">{{interval.label}}</div>
+				<div class="thermo-plan--label" ng-repeat="interval in todaysPlan.plan.ref.intervals" style="top: {{interval.labelPosition}}%">{{interval.label}}</div>
 				<div class="thermo-plan--label" style="top: 100%">23:59</div>
 			</div>
 
 			<div class="thermo-plan--chart clearfix">
-				<div class="thermo-plan--period color-{{interval.temp.color}} clearfix" style="height: {{interval.blockPosition}}%;" ng-repeat="interval in todaysPlan.intervals | filter:blockPosition">
-					<i class="{{interval.temp.iconClass}}"></i>
+				<div class="thermo-plan--period color-{{interval.temp.ref.color}} clearfix" style="height: {{interval.blockPosition}}%;" ng-repeat="interval in todaysPlan.plan.ref.intervals | filter:blockPosition">
+					<i class="{{interval.temp.ref.iconClass}}"></i>
 				</div>
-				<div class="thermo-plan--pointer color-bg-{{scope().targetTemp.color}}" style="top: {{percentInDay}}%;"></div>
+				<div class="thermo-plan--pointer color-bg-{{scope().targetTemp.ref.color}}" style="top: {{percentInDay}}%;"></div>
 			</div>
 		</div>
 	</div>
@@ -60,12 +60,12 @@
 			<h2>Temperatures</h2>
 			<div class="thermo-temps row">
 				<div class="thermo-temps--temp col-xs-6 col-lg-12" ng-repeat="temp in temps">
-					<div class="color-{{temp.color}}">
-						<i class="{{temp.iconClass}}"></i> <span class="thermo-temps--temp-name">{{temp.name}}</span>
-						<div class="thermo-temps--temp-control" data-id="{{temp._id}}">
-							<button type="button" class="thermo-temps--temp-button thermo-temps--temp--decrease" ng-click="scope().tempAdjust(temp._id, -0.1)">-</button>
-							<span class="thermo-temps--temp-value"><span ng-bind-html="temp.value | float"></span> &deg;C</span>
-							<button type="button" class="thermo-temps--temp-button thermo-temps--temp--increase" ng-click="scope().tempAdjust(temp._id, 0.1)">+</button>
+					<div class="color-{{temp.ref.color}}">
+						<i class="{{temp.ref.iconClass}}"></i> <span class="thermo-temps--temp-name">{{temp.name}}</span>
+						<div class="thermo-temps--temp-control" data-id="{{temp.ref._id}}">
+							<button type="button" class="thermo-temps--temp-button thermo-temps--temp--decrease" ng-click="scope().tempAdjust(temp.ref._id, -0.1)">-</button>
+							<span class="thermo-temps--temp-value"><span ng-bind-html="temp.ref.value | float"></span> &deg;C</span>
+							<button type="button" class="thermo-temps--temp-button thermo-temps--temp--increase" ng-click="scope().tempAdjust(temp.ref._id, 0.1)">+</button>
 						</div>
 					</div>
 				</div>
@@ -77,18 +77,49 @@
 		<div class="thermo-component">
 			<h2>Plan for the week</h2>
 			<div class="thermo-default-plans clearfix">
-				<div class="thermo-default-plans--plan" ng-repeat="defaultPlan in heatingDefaultPlans" ng-if="defaultPlan.dayOfWeek > 0">
+				<div class="thermo-default-plans--plan" ng-repeat="defaultPlan in heatingDefaultPlans" ng-if="defaultPlan.dayOfWeek > 0" data-toggle="modal" data-target=".thermo-select-plan--modal">
 					<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full">{{defaultPlan.nameOfDay}}</div>
 					<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr">{{defaultPlan.nameOfDay | first2chars}}</div>
 
-					<i class="{{defaultPlan.plan.iconClass}}"></i>
+					<i class="{{defaultPlan.plan.ref.iconClass}}"></i>
 				</div>
 
-				<div class="thermo-default-plans--plan">
+				<div class="thermo-default-plans--plan" data-toggle="modal" data-target=".thermo-select-plan--modal">
 					<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full">{{heatingDefaultPlans[0].nameOfDay}}</div>
 					<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr">{{heatingDefaultPlans[0].nameOfDay | first2chars}}</div>
 
-					<i class="{{heatingDefaultPlans[0].plan.iconClass}}"></i>
+					<i class="{{heatingDefaultPlans[0].plan.ref.iconClass}}"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="thermo-select-plan--modal modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Select plan</h4>
+			</div>
+			<div class="modal-body">
+				<div ng-repeat="planToChoose in heatingPlans">
+					<div>{{planToChoose.ref.name}} <i class="{{planToChoose.ref.iconClass}}"></i></div>
+					<div class="thermo-plan">
+						<div class="thermo-plan--labels">
+							<div class="thermo-plan--label" ng-repeat="interval in planToChoose.ref.intervals" style="top: {{interval.labelPosition}}%">{{interval.label}}</div>
+							<div class="thermo-plan--label" style="top: 100%">23:59</div>
+						</div>
+
+						<div class="thermo-plan--chart clearfix">
+							<div class="thermo-plan--period color-{{interval.temp.ref.color}} clearfix" style="height: {{interval.blockPosition}}%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+								<i class="{{interval.temp.ref.iconClass}}"></i>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

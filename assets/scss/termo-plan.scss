@@ -32,33 +32,6 @@
 	}
 }
 
-.thermo-plan--period-night {
-	border-color: $gray;
-	background: rgba($gray, 0.05);
-
-	i {
-		color: $gray;
-	}
-}
-
-.thermo-plan--period-home {
-	border-color: $olive;
-	background: rgba($olive, 0.05);
-
-	i {
-		color: $olive;
-	}
-}
-
-.thermo-plan--period-away {
-	border-color: $orange;
-	background: rgba($orange, 0.05);
-
-	i {
-		color: $orange;
-	}
-}
-
 .thermo-plan--labels {
 	position: relative;
 	width: 40px;
@@ -66,6 +39,7 @@
 	margin-top: 5px;
 	margin-left: 10px;
 	float: right;
+	font-size: 1.2rem;
 }
 
 .thermo-plan--label {
