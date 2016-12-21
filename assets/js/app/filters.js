@@ -20,3 +20,5 @@ module.filter('float', ['$sce', function($sce) {
 		return $sce.trustAsHtml(transformedValue);
 	};
 }]);
+
+module.filter('first2chars', () => (value => value ? value.substr(0, 2) : ''));

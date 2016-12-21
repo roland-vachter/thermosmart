@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" style="{{init ? '' : 'display:none;'}}">
 	<div class="col-xs-12 col-sm-6 col-lg-4">
 		<div class="thermo-component thermo-status">
 			<div class="thermo-status--outside">
@@ -35,7 +35,7 @@
 	</div>
 
 	<div class="col-xs-12 col-sm-6 col-lg-4">
-		<h3>{{todaysPlan.plan.name}}</h3>
+		<h3>{{todaysPlan.name}}</h3>
 		<div class="thermo-component thermo-plan">
 			<div class="thermo-plan--current-time" style="top: {{percentInDay}}%;">
 				{{currentTime}}
@@ -43,6 +43,7 @@
 
 			<div class="thermo-plan--labels">
 				<div class="thermo-plan--label" ng-repeat="interval in todaysPlan.intervals" style="top: {{interval.labelPosition}}%">{{interval.label}}</div>
+				<div class="thermo-plan--label" style="top: 100%">23:59</div>
 			</div>
 
 			<div class="thermo-plan--chart clearfix">
@@ -67,6 +68,27 @@
 							<button type="button" class="thermo-temps--temp-button thermo-temps--temp--increase" ng-click="scope().tempAdjust(temp._id, 0.1)">+</button>
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-12">
+		<div class="thermo-component">
+			<h2>Plan for the week</h2>
+			<div class="thermo-default-plans clearfix">
+				<div class="thermo-default-plans--plan" ng-repeat="defaultPlan in heatingDefaultPlans" ng-if="defaultPlan.dayOfWeek > 0">
+					<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full">{{defaultPlan.nameOfDay}}</div>
+					<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr">{{defaultPlan.nameOfDay | first2chars}}</div>
+
+					<i class="{{defaultPlan.plan.iconClass}}"></i>
+				</div>
+
+				<div class="thermo-default-plans--plan">
+					<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full">{{heatingDefaultPlans[0].nameOfDay}}</div>
+					<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr">{{heatingDefaultPlans[0].nameOfDay | first2chars}}</div>
+
+					<i class="{{heatingDefaultPlans[0].plan.iconClass}}"></i>
 				</div>
 			</div>
 		</div>

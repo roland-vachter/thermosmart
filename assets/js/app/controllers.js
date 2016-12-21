@@ -84,8 +84,9 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	$scope.heatingDefaultPlans = {};
 	$scope.todaysPlan = {};
 	$scope.heatingOn = true;
+	$scope.init = false;
 
-
+	const dayNameByIndex = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 	$http.get('/api/init').then((response) => {
 		if (response.data && response.data.data) {
@@ -110,6 +111,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			data.heatingDefaultPlans.forEach(heatingPlan => {
 				$scope.heatingDefaultPlans[heatingPlan.dayOfWeek] = heatingPlan;
 				heatingPlan.plan = $scope.heatingPlans[heatingPlan.plan];
+				heatingPlan.nameOfDay = dayNameByIndex[heatingPlan.dayOfWeek];
 			});
 
 			$scope.todaysPlan = $scope.heatingDefaultPlans[new Date().getDay()].plan;
@@ -118,6 +120,8 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			setInterval(() => {
 				updateView($scope);
 			}, 60000);
+
+			$scope.init = true;
 		}
 	}, (err) => {
 		console.log(err);

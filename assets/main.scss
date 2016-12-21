@@ -1,12 +1,14 @@
+@import 'bootstrap-sass/assets/stylesheets/_bootstrap';
+@import './scss/bootstrap-helpers';
+
 @import './scss/assets';
 @import './scss/icons';
 @import './scss/colors';
 @import './scss/termo-status';
 @import './scss/termo-target';
 @import './scss/termo-plan';
+@import './scss/thermo-default-plans';
 @import './scss/termo-temps';
-
-@import "bootstrap-sass/assets/stylesheets/_bootstrap";
 
 * {
 	outline: 0;
@@ -16,7 +18,7 @@
 	background: $white;
 	border-bottom: 1px solid $gray;
 	color: $orange;
-	font-size: 30px;
+	font-size: 3rem;
 	text-align: center;
 	width: 100%;
 	padding: 5px 0;
@@ -26,6 +28,7 @@
 body {
 	background-color: #f5f5f5;
 	font-family: 'Jura';
+	font-size: 65%;
 }
 
 .clearfix:after {
@@ -46,8 +49,9 @@ h6 {
 
 .thermo-component {
 	margin-bottom: 40px;
+	font-size: 1.4rem;
 }
 
 .decimal {
-	font-size: 0.7em;
+	font-size: 0.5em;
 }
