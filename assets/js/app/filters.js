@@ -15,9 +15,7 @@ module.filter('float', ['$sce', function($sce) {
 		}
 
 		const decimal = Math.abs(value) % 1;
-		if (decimal) {
-			transformedValue += `<span class="decimal">${decimal.toFixed(1).substr(1)}</span>`;
-		}
+		transformedValue += `<span class="decimal">${decimal ? decimal.toFixed(1).substr(1) : '.0'}</span>`;
 
 		return $sce.trustAsHtml(transformedValue);
 	};

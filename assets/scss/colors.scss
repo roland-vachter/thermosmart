@@ -16,55 +16,35 @@ $silver: #ddd;
 $gray: #aaa;
 $black: #111;
 
+$colors: (
+	"navy": $navy,
+	"blue": $blue,
+	"aqua": $aqua,
+	"teal": $teal,
+	"olive": $olive,
+	"green": $green,
+	"lime": $lime,
+	"yellow": $yellow,
+	"orange": $orange,
+	"red": $red,
+	"fuchsia": $fuchsia,
+	"purple": $purple,
+	"maroon": $maroon,
+	"white": $white,
+	"silver": $silver,
+	"gray": $gray,
+	"black": $black
+);
 
-.color-navy {
-	color: $navy;
+
+@each $name, $color in $colors {
+	.color-#{$name} {
+		color: $color;
+	}
 }
-.color-blue {
-	color: $blue;
-}
-.color-aqua {
-	color: $aqua;
-}
-.color-teal {
-	color: $teal;
-}
-.color-olive {
-	color: $olive;
-}
-.color-green {
-	color: $green;
-}
-.color-lime {
-	color: $lime;
-}
-.color-yellow {
-	color: $yellow;
-}
-.color-orange {
-	color: $orange;
-}
-.color-red {
-	color: $red;
-}
-.color-fuchsia {
-	color: $fuchsia;
-}
-.color-purple {
-	color: $purple;
-}
-.color-maroon {
-	color: $maroon;
-}
-.color-white {
-	color: $white;
-}
-.color-silver {
-	color: $silver;
-}
-.color-gray {
-	color: $gray;
-}
-.color-black {
-	color: $black;
+
+@each $name, $color in $colors {
+	.color-bg-#{$name} {
+		background-color: $color;
+	}
 }

@@ -8,6 +8,7 @@
 	margin-left: 50px;
 	margin-right: 50px;
 	height: 100%;
+	position: relative;
 }
 
 .thermo-plan--period {
@@ -24,7 +25,6 @@
 
 	i {
 		font-size: 30px;
-		color: $black;
 	}
 
 	&:first-child {
@@ -73,20 +73,22 @@
 	left: 0;
 	margin-top: -14px;
 	color: $black;
+}
+
+.thermo-plan--current-time {
+	position: relative;
+	width: 40px;
+	margin-right: 10px;
+	text-align: right;
+	margin-top: -14px;
 	font-weight: bold;
 }
 
 .thermo-plan--pointer {
-	position: relative;
-	width: 25px;
-	height: 100%;
-	float: left;
-	margin-left: 25px;
-
-	i {
-		position: absolute;
-		left: 0;
-		font-size: 20px;
-		margin-top: -10px;
-	}
+	position: absolute;
+	left: -50px;
+	width: 50px;
+	height: 2px;
+	margin-top: -1px;
+	text-align: right;
 }

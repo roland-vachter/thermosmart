@@ -7,7 +7,6 @@
 }
 
 .thermo-target--control {
-	color: $navy;
 	vertical-align: middle;
 }
 
@@ -29,7 +28,7 @@
 }
 
 .thermo-target--decrease {
-	
+
 }
 
 .thermo-target--increase {
@@ -39,10 +38,5 @@
 .thermo-target--value {
 	font-size: 50px;
 	font-weight: bold;
-	color: $olive;
 	vertical-align: middle;
-
-	.decimal {
-		font-size: 25px;
-	}
 }

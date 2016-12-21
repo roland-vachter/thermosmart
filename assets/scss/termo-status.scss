@@ -4,33 +4,20 @@
 }
 
 .thermo-status--house-icon {
-	font-size: 220px;
-	font-weight: 50;
-	color: $gray;
+	font-size: 240px;
+	font-weight: 100;
 }
 
 .thermo-status--icon {
 	position: absolute;
-	left: 86px;
+	left: 96px;
 	top: 30px;
 	font-size: 45px;
-
-	&.thermo-status--icon-on {
-		color: $green;
-	}
-
-	&.thermo-status--icon-off {
-		color: $gray;
-	}
 }
 
 .thermo-status--value {
 	font-size: 35px;
 	font-weight: bold;
-
-	.decimal {
-		font-size: 20px;
-	}
 
 	i {
 		font-size: 30px;
@@ -43,17 +30,17 @@
 
 	.thermo-status--value {
 		position: absolute;
-		left: 60px;
+		left: 67px;
 	}
 
 	.thermo-status--temp {
-		top: 80px;
+		top: 90px;
 		color: $orange;
 	}
 
 	.thermo-status--humi {
 		color: $teal;
-		top: 150px;
+		top: 160px;
 	}
 }
 
