@@ -9,5 +9,6 @@ const loginMiddleware = require('../lib/middlewares/login');
 
 /* GET home page. */
 router.get('/init', loginMiddleware, apiCtrl.init);
+router.post('/tempadjust', loginMiddleware, apiCtrl.tempAdjust);
 
 module.exports = router;

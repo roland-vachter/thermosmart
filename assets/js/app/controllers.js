@@ -134,10 +134,10 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 		$scope.temps[id].value += value;
 		$scope.temps[id].value = parseFloat($scope.temps[id].value.toFixed(1));
 
-		/*$http.get('/api/tempadjust', {
+		$http.post('/api/tempadjust', {
 			_id: id,
 			value: $scope.temps[id].value
-		});*/
+		});
 	}
 
 	$scope.scope = function () {

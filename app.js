@@ -83,7 +83,6 @@ passport.use(new FacebookStrategy({
 		profileFields: ['id', 'emails', 'name']
 	},
 	function(accessToken, refreshToken, profile, done) {
-		console.log(profile);
 		if (profile && profile.emails && profile.emails.length) {
 			Promise.all(profile.emails.map(email => {
 				return UserModel.findOne({
