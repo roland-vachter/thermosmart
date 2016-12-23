@@ -88,7 +88,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	$scope.heatingPlans = {};
 	$scope.heatingDefaultPlans = {};
 	$scope.todaysPlan = {};
-	$scope.heatingOn = true;
+	$scope.isHeatingOn = false;
 	$scope.init = false;
 
 	const dayNameByIndex = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -98,6 +98,15 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 		if (data.outside) {
 			$scope.outside.temp = data.outside.temperature;
 			$scope.outside.humi = data.outside.humidity;
+		}
+
+		if (data.inside) {
+			$scope.inside.temp = data.inside.temperature;
+			$scope.inside.humi = data.inside.humidity;
+		}
+
+		if (typeof data.isHeatingOn === 'boolean') {
+			$scope.isHeatingOn = data.isHeatingOn;
 		}
 
 		if (data.temperatures) {
@@ -140,24 +149,28 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 		}
 	};
 
-	$http.get('/api/init').then((response) => {
-		if (response.data && response.data.data) {
-			const data = response.data.data;
+	const init = function () {
+		$http.get(`/api/init?_=${new Date().getTime()}`).then((response) => {
+			console.log(response);
 
-			handleServerData(data);
+			if (response.data && response.data.data) {
+				const data = response.data.data;
 
-			$scope.todaysPlan = $scope.heatingDefaultPlans[new Date().getDay()];
+				handleServerData(data);
 
-			updateView($scope);
-			setInterval(() => {
+				$scope.todaysPlan = $scope.heatingDefaultPlans[new Date().getDay()];
+
 				updateView($scope);
-			}, 60000);
+				setInterval(() => {
+					updateView($scope);
+				}, 60000);
 
-			$scope.init = true;
-		}
-	}, (err) => {
-		console.log(err);
-	});
+				$scope.init = true;
+			}
+		}, (err) => {
+			console.log(err);
+		});
+	};
 
 	socketio.on('update', handleServerData);
 
@@ -169,9 +182,12 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			_id: id,
 			value: $scope.temps[id].ref.value
 		});
-	}
+	};
 
 	$scope.scope = function () {
 		return $scope;
-	}
+	};
+
+
+	init();
 }]);

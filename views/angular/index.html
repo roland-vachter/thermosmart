@@ -14,7 +14,7 @@
 			<div class="thermo-status--inside">
 				<i class="icon-house-simple thermo-status--house-icon color-gray"></i>
 
-				<i class="icon-air-conditioner-3 thermo-status--icon color-{{heatingOn ? 'olive' : 'gray'}}"></i>
+				<i class="icon-air-conditioner-3 thermo-status--icon color-{{isHeatingOn ? 'olive' : 'gray'}}"></i>
 				<div class="thermo-status--value thermo-status--temp">
 					<i class="icon-thermometer6"></i> <span ng-bind-html="inside.temp | float"></span>
 				</div>
@@ -36,7 +36,7 @@
 
 	<div class="col-xs-12 col-sm-6 col-lg-4">
 		<h3>{{todaysPlan.ref.name}}</h3>
-		<div class="thermo-component thermo-plan">
+		<div class="thermo-component thermo-plan--vertical">
 			<div class="thermo-plan--current-time" style="top: {{percentInDay}}%;">
 				{{currentTime}}
 			</div>
@@ -106,18 +106,26 @@
 				<h4 class="modal-title">Select plan</h4>
 			</div>
 			<div class="modal-body">
-				<div ng-repeat="planToChoose in heatingPlans">
-					<div>{{planToChoose.ref.name}} <i class="{{planToChoose.ref.iconClass}}"></i></div>
-					<div class="thermo-plan">
-						<div class="thermo-plan--labels">
-							<div class="thermo-plan--label" ng-repeat="interval in planToChoose.ref.intervals" style="top: {{interval.labelPosition}}%">{{interval.label}}</div>
-							<div class="thermo-plan--label" style="top: 100%">23:59</div>
+				<div ng-repeat="planToChoose in heatingPlans" class="thermo-component">
+					<div>
+						<i class="{{planToChoose.ref.iconClass}}"></i>
+						{{planToChoose.ref.name}}
+					</div>
+					<div class="thermo-plan--horizontal">
+						<div class="thermo-plan--labels visible-odd">
+							<div class="thermo-plan--label" ng-repeat="interval in planToChoose.ref.intervals" style="left: {{interval.labelPosition}}%">{{interval.label}}</div>
+							<div class="thermo-plan--label" style="left: 100%">23:59</div>
 						</div>
 
 						<div class="thermo-plan--chart clearfix">
-							<div class="thermo-plan--period color-{{interval.temp.ref.color}} clearfix" style="height: {{interval.blockPosition}}%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+							<div class="thermo-plan--period color-{{interval.temp.ref.color}} clearfix" style="width: {{interval.blockPosition}}%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
 								<i class="{{interval.temp.ref.iconClass}}"></i>
 							</div>
+						</div>
+
+						<div class="thermo-plan--labels visible-even">
+							<div class="thermo-plan--label" ng-repeat="interval in planToChoose.ref.intervals" style="left: {{interval.labelPosition}}%">{{interval.label}}</div>
+							<div class="thermo-plan--label" style="left: 100%">23:59</div>
 						</div>
 					</div>
 				</div>

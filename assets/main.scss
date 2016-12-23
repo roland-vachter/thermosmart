@@ -54,9 +54,16 @@ h6 {
 
 .thermo-component {
 	margin-bottom: 40px;
-	font-size: 1.4rem;
 }
 
 .decimal {
 	font-size: 0.5em;
+}
+
+.visible-odd > :nth-child(even) {
+	display: none;
+}
+
+.visible-even > :nth-child(odd) {
+	display: none;
 }
