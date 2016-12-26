@@ -12,6 +12,12 @@ const cacheHeaders = require('./lib/utils/cacheHeaders');
 const _ = require('lodash');
 const passport = require('passport');
 const session = require('express-session');
+var MongoDBStore = require('connect-mongodb-session')(session);
+
+var store = new MongoDBStore({
+	uri: process.env.DATABASE_URL || process.env.MONGODB_URI || process.env.MONGO_URL,
+	collection: 'sessions'
+});
 
 const UserModel = require('./lib/models/User');
 
@@ -60,9 +66,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
 	name: 'sess',
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true
+	secret: process.env.SESSION_SECRET,
+	cookie: {
+		maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
+	},
+	store: store,
+	resave: true,
+	saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
