@@ -1,3 +1,22 @@
 .thermo-select-plan--modal {
 	font-size: 2.6rem;
+
+	.thermo-select-plan--icon {
+		height: 125px;
+		font-size: 6rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.thermo-component {
+		box-sizing: border-box;
+		border: 2px solid transparent;
+
+		&:hover {
+			border: 2px solid $aqua;
+			color: $aqua;
+			cursor: pointer;
+		}
+	}
 }

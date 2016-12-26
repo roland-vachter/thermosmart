@@ -139,25 +139,31 @@
 			</div>
 			<div class="modal-body">
 				<div ng-repeat="planToChoose in heatingPlans" class="thermo-component">
-					<div>
-						<i class="{{planToChoose.ref.iconClass}}"></i>
-						{{planToChoose.ref.name}}
-					</div>
-					<div class="thermo-plan--horizontal">
-						<div class="thermo-plan--labels visible-odd">
-							<div class="thermo-plan--label" ng-repeat="interval in planToChoose.ref.intervals" style="left: {{interval.labelPosition}}%">{{interval.label}}</div>
-							<div class="thermo-plan--label" style="left: 100%">23:59</div>
-						</div>
-
-						<div class="thermo-plan--chart clearfix">
-							<div class="thermo-plan--period color-{{interval.temp.ref.color}} clearfix" style="width: {{interval.blockPosition}}%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
-								<i class="{{interval.temp.ref.iconClass}}"></i>
+					<div class="row">
+						<div class="col-xs-3">
+							<div class="thermo-select-plan--icon">
+								<i class="{{planToChoose.ref.iconClass}}"></i>
 							</div>
 						</div>
+						<div class="col-xs-9">
+							{{planToChoose.ref.name}}
+							<div class="thermo-plan--horizontal">
+								<div class="thermo-plan--labels visible-odd">
+									<div class="thermo-plan--label" ng-repeat="interval in planToChoose.ref.intervals" style="left: {{interval.labelPosition}}%">{{interval.label}}</div>
+									<div class="thermo-plan--label" style="left: 100%">23:59</div>
+								</div>
 
-						<div class="thermo-plan--labels visible-even">
-							<div class="thermo-plan--label" ng-repeat="interval in planToChoose.ref.intervals" style="left: {{interval.labelPosition}}%">{{interval.label}}</div>
-							<div class="thermo-plan--label" style="left: 100%">23:59</div>
+								<div class="thermo-plan--chart clearfix">
+									<div class="thermo-plan--period color-{{interval.temp.ref.color}} clearfix" style="width: {{interval.blockPosition}}%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="{{interval.temp.ref.iconClass}}"></i>
+									</div>
+								</div>
+
+								<div class="thermo-plan--labels visible-even">
+									<div class="thermo-plan--label" ng-repeat="interval in planToChoose.ref.intervals" style="left: {{interval.labelPosition}}%">{{interval.label}}</div>
+									<div class="thermo-plan--label" style="left: 100%">23:59</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
