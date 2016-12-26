@@ -166,6 +166,26 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 				}, 60000);
 
 				$scope.init = true;
+
+
+				$(".responsive-calendar").responsiveCalendar({
+					time: '2016-12',
+					events: {
+						"2016-12-30": {
+							"number": 5,
+							"url": "http://w3widgets.com/responsive-slider"
+						},
+						"2016-12-26": {
+							"number": 1,
+							"url": "http://w3widgets.com"
+						},
+						"2016-12-03": {
+							number: ' ',
+							badgeClass: "icon-work"
+						},
+						"2016-12-12": {}
+					}
+				});
 			}
 		}, (err) => {
 			console.log(err);

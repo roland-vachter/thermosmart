@@ -10,6 +10,8 @@ require('./js/app/filters');
 
 require('bootstrap-sass');
 
+require('./js/lib/responsive-calendar');
+
 /*const Bind = require('bind.js');
 
 const floatValueTransform = function (value) {
