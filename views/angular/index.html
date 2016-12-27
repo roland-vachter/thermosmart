@@ -77,14 +77,14 @@
 		<div class="thermo-component">
 			<h2>Plan for the week</h2>
 			<div class="thermo-default-plans clearfix">
-				<div class="thermo-default-plans--plan" ng-repeat="defaultPlan in heatingDefaultPlans" ng-if="defaultPlan.dayOfWeek > 0" data-toggle="modal" data-target=".thermo-select-plan--modal">
+				<div class="thermo-default-plans--plan" ng-repeat="defaultPlan in heatingDefaultPlans" ng-if="defaultPlan.dayOfWeek > 0" data-toggle="modal" data-target=".thermo-select-plan--modal" data-default-week-plan="{{defaultPlan.dayOfWeek}}">
 					<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full">{{defaultPlan.nameOfDay}}</div>
 					<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr">{{defaultPlan.nameOfDay | first2chars}}</div>
 
 					<i class="{{defaultPlan.plan.ref.iconClass}}"></i>
 				</div>
 
-				<div class="thermo-default-plans--plan" data-toggle="modal" data-target=".thermo-select-plan--modal">
+				<div class="thermo-default-plans--plan" data-toggle="modal" data-target=".thermo-select-plan--modal" data-default-week-plan="0">
 					<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full">{{heatingDefaultPlans[0].nameOfDay}}</div>
 					<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr">{{heatingDefaultPlans[0].nameOfDay | first2chars}}</div>
 
@@ -138,7 +138,7 @@
 				<h4 class="modal-title">Select plan</h4>
 			</div>
 			<div class="modal-body">
-				<div ng-repeat="planToChoose in heatingPlans" class="thermo-component">
+				<div ng-repeat="planToChoose in heatingPlans" class="thermo-component" ng-click="selectPlan(planToChoose.ref._id)">
 					<div class="row">
 						<div class="col-xs-3">
 							<div class="thermo-select-plan--icon">

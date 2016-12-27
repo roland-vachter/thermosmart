@@ -10,6 +10,7 @@ const cors = require('cors');
 
 router.get('/init', loginMiddleware, cors(), apiCtrl.init);
 router.post('/tempadjust', loginMiddleware, cors(), apiCtrl.tempAdjust);
-router.get('/sensorpolling', apiKeyMiddleware, apiCtrl.sensorPolling);
+router.post('/changedefaultplan', loginMiddleware, cors(), apiCtrl.changeDefaultPlan);
+router.get('/sensorpolling', apiKeyMiddleware, cors(), apiCtrl.sensorPolling);
 
 module.exports = router;

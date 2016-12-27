@@ -1,4 +1,4 @@
-/* global angular */
+/* global $ */
 
 'use strict';
 
@@ -147,6 +147,9 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 				heatingPlan.nameOfDay = dayNameByIndex[heatingPlan.dayOfWeek];
 			});
 		}
+
+		$scope.todaysPlan = $scope.heatingDefaultPlans[new Date().getDay()];
+		updateView($scope);
 	};
 
 	const init = function () {
@@ -202,6 +205,31 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			_id: id,
 			value: $scope.temps[id].ref.value
 		});
+	};
+
+
+	let selectedDayOfWeekToChange = null;
+	const selectPlanModal = $('.thermo-select-plan--modal');
+	selectPlanModal.on('show.bs.modal', (e) => {
+		const srcEl = e.relatedTarget;
+
+		if (srcEl.getAttribute('data-default-week-plan')) {
+			selectedDayOfWeekToChange = srcEl.getAttribute('data-default-week-plan');
+		}
+	});
+	selectPlanModal.on('hide.bs.modal', () => {
+		selectedDayOfWeekToChange = null;
+	});
+
+	$scope.selectPlan = function (planId) {
+		if (selectedDayOfWeekToChange) {
+			$http.post('/api/changedefaultplan', {
+				dayOfWeek: selectedDayOfWeekToChange,
+				planId: planId
+			});
+
+			selectPlanModal.modal('hide');
+		}
 	};
 
 	$scope.scope = function () {
