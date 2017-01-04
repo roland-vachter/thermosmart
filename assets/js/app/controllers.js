@@ -52,8 +52,9 @@ const getCurrentTemp = function (todaysPlan) {
 	const today = new Date();
 
 	todaysPlan.intervals.forEach(interval => {
-		if (today.getHours() >= interval.startHour &&
-				today.getMinutes() >= interval.startMinute) {
+		if (today.getHours() > interval.startHour ||
+				(today.getHours() === interval.startHour &&
+				today.getMinutes() >= interval.startMinute)) {
 			temp = interval.temp;
 		}
 	});
@@ -101,8 +102,21 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 		}
 
 		if (data.inside) {
-			$scope.inside.temp = data.inside.temperature;
-			$scope.inside.humi = data.inside.humidity;
+			const ids = Object.keys(data.inside);
+
+			$scope.inside.temp = 0;
+			$scope.inside.humi = 0;
+
+			ids.forEach(id => {
+				$scope.inside.temp += data.inside[id].temperature;
+				$scope.inside.humi += data.inside[id].humidity;
+			});
+
+			$scope.inside.temp = $scope.inside.temp / ids.length;
+			$scope.inside.humi = $scope.inside.humi / ids.length;
+
+
+			$scope.inside.individual = data.inside;
 		}
 
 		if (typeof data.isHeatingOn === 'boolean') {
