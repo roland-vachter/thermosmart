@@ -59,7 +59,7 @@
 		<div class="thermo-component thermo-room-temps">
 			<div ng-repeat="(id, data) in inside.individual">
 				<div>
-					{{id}}: <i class="icon-thermometer6"></i> <span ng-bind-html="temperature | float"></span> / <i class="icon-humidity"></i> <span ng-bind-html="humidity | float"></span>
+					{{id}}: <i class="icon-thermometer6"></i> <span ng-bind-html="data.temperature | float"></span> / <i class="icon-humidity"></i> <span ng-bind-html="data.humidity | float"></span>
 				</div>
 			</div>
 		</div>
