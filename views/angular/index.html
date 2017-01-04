@@ -2,6 +2,10 @@
 	<div class="col-xs-12 col-sm-6 col-lg-4">
 		<div class="thermo-component thermo-status">
 			<div class="thermo-status--outside">
+				<div class="thermo-status--weather">
+					<img src="{{outside.weatherIconUrl}}" />
+				</div>
+
 				<div class="thermo-status--value thermo-status--temp">
 					<i class="icon-thermometer6"></i> <span ng-bind-html="outside.temp | float"></span>
 				</div>

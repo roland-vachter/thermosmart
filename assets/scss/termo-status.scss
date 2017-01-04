@@ -58,4 +58,13 @@
 	.thermo-status--humi {
 		color: $navy;
 	}
+
+	.thermo-status--weather {
+		margin-bottom: 40px;
+		text-align: center;
+
+		img {
+			width: 50px;
+		}
+	}
 }
