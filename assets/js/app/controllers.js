@@ -109,13 +109,18 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			$scope.inside.temp = 0;
 			$scope.inside.humi = 0;
 
+			let activeCount = 0;
 			ids.forEach(id => {
-				$scope.inside.temp += data.inside[id].temperature;
-				$scope.inside.humi += data.inside[id].humidity;
+				if (data.inside[id].active) {
+					$scope.inside.temp += data.inside[id].temperature;
+					$scope.inside.humi += data.inside[id].humidity;
+
+					activeCount++;
+				}
 			});
 
-			$scope.inside.temp = $scope.inside.temp / ids.length;
-			$scope.inside.humi = $scope.inside.humi / ids.length;
+			$scope.inside.temp = $scope.inside.temp / activeCount;
+			$scope.inside.humi = $scope.inside.humi / activeCount;
 
 
 			$scope.inside.individual = data.inside;
