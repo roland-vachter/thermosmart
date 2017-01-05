@@ -83,7 +83,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	$scope.outside = {
 		temp: 0,
 		humi: 0,
-		weatherIconUrl: ''
+		weatherIconClass: ''
 	};
 
 	$scope.temps = {};
@@ -100,7 +100,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 		if (data.outside) {
 			$scope.outside.temp = data.outside.temperature;
 			$scope.outside.humi = data.outside.humidity;
-			$scope.outside.weatherIconUrl = data.outside.weatherIconUrl;
+			$scope.outside.weatherIconClass = data.outside.weatherIconClass;
 		}
 
 		if (data.inside) {
