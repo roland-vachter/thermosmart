@@ -4,13 +4,13 @@
 }
 
 .thermo-status--house-icon {
-	font-size: 22rem;
+	font-size: 21rem;
 	font-weight: 100;
 }
 
 .thermo-status--icon {
 	position: absolute;
-	left: 90px;
+	left: 86px;
 	top: 30px;
 	font-size: 4.5rem;
 }
@@ -30,7 +30,7 @@
 
 	.thermo-status--value {
 		position: absolute;
-		left: 61px;
+		left: 56px;
 	}
 
 	.thermo-status--temp {
@@ -40,7 +40,7 @@
 
 	.thermo-status--humi {
 		color: $teal;
-		top: 170px;
+		top: 155px;
 	}
 }
 

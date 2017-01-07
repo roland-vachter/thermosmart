@@ -93,6 +93,11 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	$scope.isHeatingOn = false;
 	$scope.init = false;
 
+	$scope.roomIdToLabel = {
+		1: "Bedroom",
+		2: "Kitchen"
+	};
+
 	const dayNameByIndex = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 
