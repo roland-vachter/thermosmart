@@ -14,7 +14,7 @@ module.filter('float', ['$sce', function($sce) {
 			transformedValue += Math.ceil(value);
 		}
 
-		const decimal = Math.abs(value) % 1;
+		let decimal = Math.abs(value) % 1;
 
 		if (decimal && decimal.toFixed(1) === '1.0') {
 			decimal = 0;
