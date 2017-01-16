@@ -180,7 +180,13 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 				data: {
 					datasets: [{
 						label: 'Heating status',
-						data: data.heatingHistoryLast24.map(item => {return {x: item.datetime, y: item.status}; }),
+						data: [
+							...data.heatingHistoryLast24.map(item => {return {x: item.datetime, y: item.status}; }),
+							{
+								x: new Date(),
+								y: $scope.isHeatingOn
+							}
+						],
 						steppedLine: true
 					}]
 				},
