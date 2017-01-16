@@ -1,4 +1,4 @@
-/* global $ */
+/* global $, Chart */
 
 'use strict';
 
@@ -174,6 +174,39 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			});
 		}
 
+		if (data.heatingHistoryLast24) {
+			new Chart(document.querySelector('#heatingHistoryChart'), {
+				type: 'line',
+				data: {
+					datasets: [{
+						label: 'Heating status',
+						data: data.heatingHistoryLast24.map(item => {return {x: item.datetime, y: item.status}; }),
+						steppedLine: true
+					}]
+				},
+				options: {
+					scales: {
+						xAxes: [{
+							type: 'time',
+							time: {
+								unit: 'hour'
+							}
+						}],
+						yAxes: [{
+							ticks: {
+								callback: function(value) {
+									return value ? 'On' : 'Off';
+								},
+								fixedStepSize: 1,
+								min: 0,
+								max: 1
+							}
+						}]
+					}
+				}
+			});
+		}
+
 		$scope.todaysPlan = $scope.heatingDefaultPlans[new Date().getDay()];
 		updateView($scope);
 	};
@@ -261,7 +294,6 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	$scope.scope = function () {
 		return $scope;
 	};
-
 
 	init();
 }]);
