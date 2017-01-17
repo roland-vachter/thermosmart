@@ -196,7 +196,19 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 							type: 'time',
 							time: {
 								unit: 'hour',
-								unitStepSize: 3
+								tooltipFormat: 'MMM Do, HH:mm',
+								unitStepSize: 3,
+								displayFormats: {
+									millisecond: 'SSS [ms]',
+									second: 'h:mm:ss a',
+									minute: 'h:mm:ss a',
+									hour: 'HH:mm',
+									day: 'll',
+									week: 'll',
+									month: 'MMM YYYY',
+									quarter: '[Q]Q - YYYY',
+									year: 'YYYY'
+								}
 							}
 						}],
 						yAxes: [{
@@ -204,7 +216,6 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 								callback: function(value) {
 									return value ? 'On' : 'Off';
 								},
-								tooltipFormat: 'MMM Do, HH:mm',
 								fixedStepSize: 1,
 								min: 0,
 								max: 1
