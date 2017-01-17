@@ -76,13 +76,13 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	$scope.targetTemp = 0;
 
 	$scope.inside = {
-		temp: 22.3,
-		humi: 55.4
+		temp: NaN,
+		humi: NaN
 	};
 
 	$scope.outside = {
-		temp: 0,
-		humi: 0,
+		temp: NaN,
+		humi: NaN,
 		weatherIconClass: ''
 	};
 
@@ -125,7 +125,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			});
 
 			$scope.inside.temp = $scope.inside.temp / activeCount;
-			$scope.inside.humi = $scope.inside.humi / activeCount;
+			$scope.inside.humi = Math.round($scope.inside.humi / activeCount);
 
 
 			$scope.inside.individual = data.inside;
