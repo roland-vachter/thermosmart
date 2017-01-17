@@ -182,6 +182,10 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 					datasets: [{
 						label: 'Heating status',
 						data: [
+							{
+								x: data.heatingHistoryLast24[0].datetime,
+								y: !data.heatingHistoryLast24[0].status
+							},
 							...data.heatingHistoryLast24.map(item => {return {x: item.datetime, y: item.status}; }),
 							{
 								x: new Date(),
