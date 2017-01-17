@@ -37,12 +37,15 @@ module.filter('duration', () => (value => {
 	let str = '';
 
 	const duration = moment.duration(value * 60 * 1000);
-	if (duration.hours()) {
-		str += `${duration.hours()} hours `;
+
+	const hours = duration.hours();
+	if (hours) {
+		str += `${hours} hour${hours > 1 ? 's' : ''} `;
 	}
 
-	if (duration.minutes()) {
-		str += `${duration.minutes()} minutes `;
+	const minutes = duration.minutes();
+	if (minutes) {
+		str += `${minutes} minute${minutes > 1 ? 's' : ''} `;
 	}
 
 	return str.trim();
