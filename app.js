@@ -196,4 +196,6 @@ const errorHandler = (err, req, res, next) => {
 
 app.use(errorHandler);
 
+require('./lib/services/statistics');
+
 module.exports = app;
