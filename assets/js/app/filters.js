@@ -33,4 +33,17 @@ module.filter('float', ['$sce', function($sce) {
 
 module.filter('first2chars', () => (value => value ? value.substr(0, 2) : ''));
 
-module.filter('duration', () => (value => moment.duration(value * 60 * 1000)));
+module.filter('duration', () => (value => {
+	let str = '';
+
+	const duration = moment.duration(value * 60 * 1000);
+	if (duration.hours()) {
+		str += `${duration.hours()} hours`;
+	}
+
+	if (duration.minutes()) {
+		str += `${duration.minutes()} minutes`;
+	}
+
+	return str;
+}));
