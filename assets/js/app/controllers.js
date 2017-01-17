@@ -195,7 +195,9 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 						xAxes: [{
 							type: 'time',
 							time: {
-								unit: 'hour',
+								displayFormats: {
+									hour: 'HH:mm'
+								},
 								unitStepSize: 3
 							}
 						}],
@@ -204,6 +206,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 								callback: function(value) {
 									return value ? 'On' : 'Off';
 								},
+								tooltipFormat: 'MMM Do, HH:mm',
 								fixedStepSize: 1,
 								min: 0,
 								max: 1
