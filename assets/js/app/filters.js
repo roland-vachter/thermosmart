@@ -38,12 +38,12 @@ module.filter('duration', () => (value => {
 
 	const duration = moment.duration(value * 60 * 1000);
 	if (duration.hours()) {
-		str += `${duration.hours()} hours`;
+		str += `${duration.hours()} hours `;
 	}
 
 	if (duration.minutes()) {
-		str += `${duration.minutes()} minutes`;
+		str += `${duration.minutes()} minutes `;
 	}
 
-	return str;
+	return str.trim();
 }));
