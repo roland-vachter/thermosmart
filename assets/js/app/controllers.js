@@ -177,6 +177,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 		if (data.heatingHistoryLast24) {
 			new Chart(document.querySelector('#heatingHistoryChart'), {
 				type: 'line',
+				maintainAspectRatio: false,
 				data: {
 					datasets: [{
 						label: 'Heating status',
@@ -197,7 +198,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 							time: {
 								unit: 'hour',
 								tooltipFormat: 'MMM Do, HH:mm',
-								unitStepSize: 3,
+								unitStepSize: 1,
 								displayFormats: {
 									millisecond: 'SSS [ms]',
 									second: 'h:mm:ss a',
