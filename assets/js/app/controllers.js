@@ -174,6 +174,10 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			});
 		}
 
+		if (data.statisticsForToday) {
+			$scope.statisticsForToday = data.statisticsForToday;
+		}
+
 		if (data.heatingHistoryLast24) {
 			new Chart(document.querySelector('#heatingHistoryChart'), {
 				type: 'line',
@@ -236,11 +240,11 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 						yAxes: [{
 							ticks: {
 								callback: function(value) {
-									return value ? 'On' : 'Off';
+									return value === 0 ? 'Off' : value === 1 ? 'On' : '';
 								},
 								fixedStepSize: 1,
 								min: 0,
-								max: 1
+								max: 10
 							}
 						}]
 					}

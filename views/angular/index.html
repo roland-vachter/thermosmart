@@ -71,7 +71,18 @@
 	</div>
 
 	<div class="col-xs-12">
-		<canvas id="heatingHistoryChart" width="600" height="200"></canvas>
+		<div class="thermo-component">
+			<h2>Statistics for today</h2>
+			<div>
+				Heating run: {{statisticsForToday.heatingDuration}} minutes
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-12">
+		<div class="thermo-component">
+			<canvas id="heatingHistoryChart" width="600" height="200"></canvas>
+		</div>
 	</div>
 
 	<div class="col-xs-12">
