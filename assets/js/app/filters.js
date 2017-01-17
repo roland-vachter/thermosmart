@@ -1,4 +1,4 @@
-/* global angular */
+/* global moment */
 
 'use strict';
 
@@ -32,3 +32,5 @@ module.filter('float', ['$sce', function($sce) {
 }]);
 
 module.filter('first2chars', () => (value => value ? value.substr(0, 2) : ''));
+
+module.filter('duration', () => (value => moment.duration(value * 60 * 1000)));

@@ -74,7 +74,7 @@
 		<div class="thermo-component">
 			<h2>Statistics for today</h2>
 			<div>
-				Heating run: {{statisticsForToday.heatingDuration}} minutes
+				Heating run: <span ng-bind-html="statisticsForToday.heatingDuration | duration">
 			</div>
 		</div>
 	</div>
