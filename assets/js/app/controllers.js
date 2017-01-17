@@ -195,9 +195,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 						xAxes: [{
 							type: 'time',
 							time: {
-								displayFormats: {
-									hour: 'HH:mm'
-								},
+								unit: 'hour',
 								unitStepSize: 3
 							}
 						}],
