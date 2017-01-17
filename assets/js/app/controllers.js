@@ -177,7 +177,9 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 		if (data.heatingHistoryLast24) {
 			new Chart(document.querySelector('#heatingHistoryChart'), {
 				type: 'line',
-				maintainAspectRatio: false,
+				options: {
+					maintainAspectRatio: false
+				},
 				data: {
 					datasets: [{
 						label: 'Heating status',
