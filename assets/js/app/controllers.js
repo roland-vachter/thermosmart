@@ -182,7 +182,8 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			new Chart(document.querySelector('#heatingHistoryChart'), {
 				type: 'line',
 				options: {
-					maintainAspectRatio: false
+					maintainAspectRatio: false,
+					responsive: true
 				},
 				data: {
 					datasets: [{
@@ -190,9 +191,9 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 						data: [
 							{
 								x: data.heatingHistoryLast24[0].datetime,
-								y: !data.heatingHistoryLast24[0].status
+								y: 0
 							},
-							...data.heatingHistoryLast24.map(item => {return {x: item.datetime, y: item.status}; }),
+							...data.heatingHistoryLast24.map(item => {return {x: item.datetime, y: item.status ? 0 : 10}; }),
 							{
 								x: new Date(),
 								y: $scope.isHeatingOn
