@@ -193,7 +193,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 								x: data.heatingHistoryLast24[0].datetime,
 								y: 0
 							},
-							...data.heatingHistoryLast24.map(item => {return {x: item.datetime, y: item.status ? 0 : 10}; }),
+							...data.heatingHistoryLast24.map(item => {return {x: item.datetime, y: item.status ? 10 : 0}; }),
 							{
 								x: new Date(),
 								y: $scope.isHeatingOn
