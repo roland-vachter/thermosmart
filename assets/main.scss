@@ -45,6 +45,12 @@
 	width: 100%;
 	padding: 5px 0;
 	font-family: 'Jura';
+	position: fixed;
+	top: 0;
+}
+
+.mainContent {
+	margin-top: 75px;
 }
 
 .thermo-refresh {
