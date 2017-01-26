@@ -5,9 +5,7 @@
 				ThermoSmart
 
 				<div class="pull-right">
-					<div ng-class="{'thermo-spin': initInProgress}">
-						<i class="thermo-refresh icon-continuous in-progress" ng-class="{'color-gray': currentDate - lastUpdate < 5 * 60 * 1000, 'color-orange': currentDate - lastUpdate >= 5 * 60 * 1000 && currentDate - lastUpdate < 10 * 60 * 1000, 'color-red': currentDate - lastUpdate >= 10 * 60 * 1000}" ng-click="refresh()"></i>
-					</div>
+					<div class="thermo-refresh icon-continuous in-progress" ng-class="{'color-gray': currentDate - lastUpdate < 5 * 60 * 1000, 'color-orange': currentDate - lastUpdate >= 5 * 60 * 1000 && currentDate - lastUpdate < 10 * 60 * 1000, 'color-red': currentDate - lastUpdate >= 10 * 60 * 1000, 'thermo-spin': initInProgress}" ng-click="refresh()"></div>
 				</div>
 			</div>
 		</div>
