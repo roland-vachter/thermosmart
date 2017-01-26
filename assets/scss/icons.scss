@@ -1,12 +1,16 @@
-@font-face {
-  font-family: 'icomoon';
-  src:  url($assets-in-app-global-path + 'fonts/icomoon.eot?hxi1c');
-  src:  url($assets-in-app-global-path + 'fonts/icomoon.eot?hxi1c#iefix') format('embedded-opentype'),
-    url($assets-in-app-global-path + 'fonts/icomoon.ttf?hxi1c') format('truetype'),
-    url($assets-in-app-global-path + 'fonts/icomoon.woff?hxi1c') format('woff'),
-    url($assets-in-app-global-path + 'fonts/icomoon.svg?hxi1c#icomoon') format('svg');
-  font-weight: normal;
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
   font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 [class^="icon-"], [class*=" icon-"] {
@@ -24,961 +28,964 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-away:before {
-  content: "\ea3c";
-}
-.icon-holiday:before {
-  content: "\ea3d";
-}
-.icon-work:before {
-  content: "\ea3e";
-}
-.icon-home2:before {
-  content: "\ea39";
-}
-.icon-house-floor:before {
-  content: "\ea3a";
-}
-.icon-house-simple:before {
-  content: "\ea3b";
-}
-.icon-air-conditioner-3:before {
+.icon-power-button:before {
   content: "\e900";
 }
-.icon-continuous:before {
+.icon-air-conditioner-3:before {
   content: "\e901";
 }
-.icon-high:before {
+.icon-continuous:before {
   content: "\e902";
 }
-.icon-house:before {
+.icon-high:before {
   content: "\e903";
 }
-.icon-house-1:before {
+.icon-house:before {
   content: "\e904";
 }
-.icon-house-2:before {
+.icon-house-1:before {
   content: "\e905";
 }
-.icon-house-3:before {
+.icon-house-2:before {
   content: "\e906";
 }
-.icon-house-4:before {
+.icon-house-3:before {
   content: "\e907";
 }
-.icon-house-5:before {
+.icon-house-4:before {
   content: "\e908";
 }
-.icon-house-6:before {
+.icon-house-5:before {
   content: "\e909";
 }
-.icon-humidity:before {
+.icon-house-6:before {
   content: "\e90a";
 }
-.icon-low:before {
+.icon-humidity:before {
   content: "\e90b";
 }
-.icon-mode:before {
+.icon-low:before {
   content: "\e90c";
 }
-.icon-night:before {
+.icon-mode:before {
   content: "\e90d";
 }
-.icon-off-button:before {
+.icon-night:before {
   content: "\e90e";
 }
-.icon-on-button:before {
+.icon-off-button:before {
   content: "\e90f";
 }
-.icon-sun:before {
+.icon-on-button:before {
   content: "\e910";
 }
-.icon-thermometer:before {
+.icon-sun:before {
   content: "\e911";
 }
-.icon-thermometer-1:before {
+.icon-thermometer:before {
   content: "\e912";
 }
-.icon-thermometer-2:before {
+.icon-thermometer-1:before {
   content: "\e913";
 }
-.icon-thermometer-3:before {
+.icon-thermometer-2:before {
   content: "\e914";
 }
-.icon-thermometer-4:before {
+.icon-thermometer-3:before {
   content: "\e915";
 }
-.icon-thermometer-5:before {
+.icon-thermometer-4:before {
   content: "\e916";
 }
-.icon-thermometer-6:before {
+.icon-thermometer-5:before {
   content: "\e917";
 }
-.icon-thermometer-7:before {
+.icon-thermometer-6:before {
   content: "\e918";
 }
-.icon-thermometer-8:before {
+.icon-thermometer-7:before {
   content: "\e919";
 }
-.icon-thermometer-9:before {
+.icon-thermometer-8:before {
   content: "\e91a";
 }
-.icon-thermometer-10:before {
+.icon-thermometer-9:before {
   content: "\e91b";
 }
-.icon-thermometer-11:before {
+.icon-thermometer-10:before {
   content: "\e91c";
 }
-.icon-thermometer-12:before {
+.icon-thermometer-11:before {
   content: "\e91d";
 }
-.icon-timer:before {
+.icon-thermometer-12:before {
   content: "\e91e";
 }
-.icon-back:before {
+.icon-timer:before {
   content: "\e91f";
 }
-.icon-next-4:before {
+.icon-back:before {
   content: "\e920";
 }
-.icon-up-arrow:before {
+.icon-next-4:before {
   content: "\e921";
 }
-.icon-down-arrow:before {
+.icon-up-arrow:before {
   content: "\e922";
 }
-.icon-back-1:before {
+.icon-down-arrow:before {
   content: "\e923";
 }
-.icon-next-1:before {
+.icon-back-1:before {
   content: "\e924";
 }
-.icon-up-arrow-4:before {
+.icon-next-1:before {
   content: "\e925";
 }
-.icon-downloading:before {
+.icon-up-arrow-4:before {
   content: "\e926";
 }
-.icon-back-7:before {
+.icon-downloading:before {
   content: "\e927";
 }
-.icon-right-arrow-2:before {
+.icon-back-7:before {
   content: "\e928";
 }
-.icon-battery:before {
+.icon-right-arrow-2:before {
   content: "\e929";
 }
-.icon-battery-1:before {
+.icon-battery:before {
   content: "\e92a";
 }
-.icon-battery-2:before {
+.icon-battery-1:before {
   content: "\e92b";
 }
-.icon-battery-3:before {
+.icon-battery-2:before {
   content: "\e92c";
 }
-.icon-battery-4:before {
+.icon-battery-3:before {
   content: "\e92d";
 }
-.icon-battery-5:before {
+.icon-battery-4:before {
   content: "\e92e";
 }
-.icon-battery-6:before {
+.icon-battery-5:before {
   content: "\e92f";
 }
-.icon-bell:before {
+.icon-battery-6:before {
   content: "\e930";
 }
-.icon-calendar:before {
+.icon-bell:before {
   content: "\e931";
 }
-.icon-clock:before {
+.icon-calendar:before {
   content: "\e932";
 }
-.icon-cloud:before {
+.icon-clock:before {
   content: "\e933";
 }
-.icon-cloud-1:before {
+.icon-cloud:before {
   content: "\e934";
 }
-.icon-cloudy:before {
+.icon-cloud-1:before {
   content: "\e935";
 }
-.icon-cloudy-1:before {
+.icon-cloudy:before {
   content: "\e936";
 }
-.icon-diagonal-arrow-5:before {
+.icon-cloudy-1:before {
   content: "\e937";
 }
-.icon-diagonal-arrow-6:before {
+.icon-diagonal-arrow-5:before {
   content: "\e938";
 }
-.icon-diagonal-arrow-7:before {
+.icon-diagonal-arrow-6:before {
   content: "\e939";
 }
-.icon-diagonal-arrows:before {
+.icon-diagonal-arrow-7:before {
   content: "\e93a";
 }
-.icon-home:before {
+.icon-diagonal-arrows:before {
   content: "\e93b";
 }
-.icon-heart:before {
+.icon-home:before {
   content: "\e93c";
 }
-.icon-star:before {
+.icon-heart:before {
   content: "\e93d";
 }
-.icon-garbage:before {
+.icon-star:before {
   content: "\e93e";
 }
-.icon-stats:before {
+.icon-garbage:before {
   content: "\e93f";
 }
-.icon-pie-chart:before {
+.icon-stats:before {
   content: "\e940";
 }
-.icon-screwdriver:before {
+.icon-pie-chart:before {
   content: "\e941";
 }
-.icon-wrench:before {
+.icon-screwdriver:before {
   content: "\e942";
 }
-.icon-wrench-1:before {
+.icon-wrench:before {
   content: "\e943";
 }
-.icon-search:before {
+.icon-wrench-1:before {
   content: "\e944";
 }
-.icon-zoom-in:before {
+.icon-search:before {
   content: "\e945";
 }
-.icon-zoom-out:before {
+.icon-zoom-in:before {
   content: "\e946";
 }
-.icon-settings:before {
+.icon-zoom-out:before {
   content: "\e947";
 }
-.icon-settings-1:before {
+.icon-settings:before {
   content: "\e948";
 }
-.icon-settings-2:before {
+.icon-settings-1:before {
   content: "\e949";
 }
-.icon-padlock:before {
+.icon-settings-2:before {
   content: "\e94a";
 }
-.icon-padlock-1:before {
+.icon-padlock:before {
   content: "\e94b";
 }
-.icon-hail:before {
+.icon-padlock-1:before {
   content: "\e94c";
 }
-.icon-night2:before {
+.icon-hail:before {
   content: "\e94d";
 }
-.icon-night-1:before {
+.icon-night2:before {
   content: "\e94e";
 }
-.icon-night-2:before {
+.icon-night-1:before {
   content: "\e94f";
 }
-.icon-night-3:before {
+.icon-night-2:before {
   content: "\e950";
 }
-.icon-rain:before {
+.icon-night-3:before {
   content: "\e951";
 }
-.icon-rain-1:before {
+.icon-rain:before {
   content: "\e952";
 }
-.icon-snowflake:before {
+.icon-rain-1:before {
   content: "\e953";
 }
-.icon-soundcloud:before {
+.icon-snowflake:before {
   content: "\e954";
 }
-.icon-storm:before {
+.icon-soundcloud:before {
   content: "\e955";
 }
-.icon-storm-1:before {
+.icon-storm:before {
   content: "\e956";
 }
-.icon-sunny:before {
+.icon-storm-1:before {
   content: "\e957";
 }
-.icon-sunny-1:before {
+.icon-sunny:before {
   content: "\e958";
 }
-.icon-temperature:before {
+.icon-sunny-1:before {
   content: "\e959";
 }
-.icon-temperature-1:before {
+.icon-temperature:before {
   content: "\e95a";
 }
-.icon-thermometer2:before {
+.icon-temperature-1:before {
   content: "\e95b";
 }
-.icon-thermometer-13:before {
+.icon-thermometer2:before {
   content: "\e95c";
 }
-.icon-thermometer-22:before {
+.icon-thermometer-13:before {
   content: "\e95d";
 }
-.icon-haze:before {
+.icon-thermometer-22:before {
   content: "\e95e";
 }
-.icon-haze-1:before {
+.icon-haze:before {
   content: "\e95f";
 }
-.icon-wind:before {
+.icon-haze-1:before {
   content: "\e960";
 }
-.icon-wind-1:before {
+.icon-wind:before {
   content: "\e961";
 }
-.icon-cloud2:before {
+.icon-wind-1:before {
   content: "\e962";
 }
-.icon-cloud-12:before {
+.icon-cloud2:before {
   content: "\e963";
 }
-.icon-clouds:before {
+.icon-cloud-12:before {
   content: "\e964";
 }
-.icon-cloudy2:before {
+.icon-clouds:before {
   content: "\e965";
 }
-.icon-night3:before {
+.icon-cloudy2:before {
   content: "\e966";
 }
-.icon-night-12:before {
+.icon-night3:before {
   content: "\e967";
 }
-.icon-night-22:before {
+.icon-night-12:before {
   content: "\e968";
 }
-.icon-rain2:before {
+.icon-night-22:before {
   content: "\e969";
 }
-.icon-rain-12:before {
+.icon-rain2:before {
   content: "\e96a";
 }
-.icon-rain-2:before {
+.icon-rain-12:before {
   content: "\e96b";
 }
-.icon-rain-3:before {
+.icon-rain-2:before {
   content: "\e96c";
 }
-.icon-rain-4:before {
+.icon-rain-3:before {
   content: "\e96d";
 }
-.icon-rain-5:before {
+.icon-rain-4:before {
   content: "\e96e";
 }
-.icon-rain-6:before {
+.icon-rain-5:before {
   content: "\e96f";
 }
-.icon-rain-7:before {
+.icon-rain-6:before {
   content: "\e970";
 }
-.icon-rain-8:before {
+.icon-rain-7:before {
   content: "\e971";
 }
-.icon-rain-9:before {
+.icon-rain-8:before {
   content: "\e972";
 }
-.icon-rain-10:before {
+.icon-rain-9:before {
   content: "\e973";
 }
-.icon-rain-11:before {
+.icon-rain-10:before {
   content: "\e974";
 }
-.icon-rain-122:before {
+.icon-rain-11:before {
   content: "\e975";
 }
-.icon-rainbow:before {
+.icon-rain-122:before {
   content: "\e976";
 }
-.icon-rainbow-1:before {
+.icon-rainbow:before {
   content: "\e977";
 }
-.icon-rainy:before {
+.icon-rainbow-1:before {
   content: "\e978";
 }
-.icon-snowflake2:before {
+.icon-rainy:before {
   content: "\e979";
 }
-.icon-snowflake-1:before {
+.icon-snowflake2:before {
   content: "\e97a";
 }
-.icon-snowing:before {
+.icon-snowflake-1:before {
   content: "\e97b";
 }
-.icon-snowing-1:before {
+.icon-snowing:before {
   content: "\e97c";
 }
-.icon-snowing-2:before {
+.icon-snowing-1:before {
   content: "\e97d";
 }
-.icon-storm2:before {
+.icon-snowing-2:before {
   content: "\e97e";
 }
-.icon-storm-12:before {
+.icon-storm2:before {
   content: "\e97f";
 }
-.icon-storm-2:before {
+.icon-storm-12:before {
   content: "\e980";
 }
-.icon-storm-3:before {
+.icon-storm-2:before {
   content: "\e981";
 }
-.icon-storm-4:before {
+.icon-storm-3:before {
   content: "\e982";
 }
-.icon-storm-5:before {
+.icon-storm-4:before {
   content: "\e983";
 }
-.icon-sun2:before {
+.icon-storm-5:before {
   content: "\e984";
 }
-.icon-sun-1:before {
+.icon-sun2:before {
   content: "\e985";
 }
-.icon-sun-2:before {
+.icon-sun-1:before {
   content: "\e986";
 }
-.icon-sun-3:before {
+.icon-sun-2:before {
   content: "\e987";
 }
-.icon-sun-4:before {
+.icon-sun-3:before {
   content: "\e988";
 }
-.icon-temperature2:before {
+.icon-sun-4:before {
   content: "\e989";
 }
-.icon-temperature-12:before {
+.icon-temperature2:before {
   content: "\e98a";
 }
-.icon-thermometer3:before {
+.icon-temperature-12:before {
   content: "\e98b";
 }
-.icon-thermometer-14:before {
+.icon-thermometer3:before {
   content: "\e98c";
 }
-.icon-thermometer-23:before {
+.icon-thermometer-14:before {
   content: "\e98d";
 }
-.icon-thermometer-32:before {
+.icon-thermometer-23:before {
   content: "\e98e";
 }
-.icon-thermometer-42:before {
+.icon-thermometer-32:before {
   content: "\e98f";
 }
-.icon-thermometer-52:before {
+.icon-thermometer-42:before {
   content: "\e990";
 }
-.icon-tornado:before {
+.icon-thermometer-52:before {
   content: "\e991";
 }
-.icon-tornado-1:before {
+.icon-tornado:before {
   content: "\e992";
 }
-.icon-umbrella:before {
+.icon-tornado-1:before {
   content: "\e993";
 }
-.icon-umbrella-1:before {
+.icon-umbrella:before {
   content: "\e994";
 }
-.icon-umbrella-2:before {
+.icon-umbrella-1:before {
   content: "\e995";
 }
-.icon-umbrella-3:before {
+.icon-umbrella-2:before {
   content: "\e996";
 }
-.icon-umbrella-4:before {
+.icon-umbrella-3:before {
   content: "\e997";
 }
-.icon-warning:before {
+.icon-umbrella-4:before {
   content: "\e998";
 }
-.icon-wind2:before {
+.icon-warning:before {
   content: "\e999";
 }
-.icon-wind-sign:before {
+.icon-wind2:before {
   content: "\e99a";
 }
-.icon-windy:before {
+.icon-wind-sign:before {
   content: "\e99b";
 }
-.icon-windy-1:before {
+.icon-windy:before {
   content: "\e99c";
 }
-.icon-windy-2:before {
+.icon-windy-1:before {
   content: "\e99d";
 }
-.icon-cloud3:before {
+.icon-windy-2:before {
   content: "\e99e";
 }
-.icon-cloud-computing:before {
+.icon-cloud3:before {
   content: "\e99f";
 }
-.icon-cloud-computing-1:before {
+.icon-cloud-computing:before {
   content: "\e9a0";
 }
-.icon-cloudy3:before {
+.icon-cloud-computing-1:before {
   content: "\e9a1";
 }
-.icon-cloudy-12:before {
+.icon-cloudy3:before {
   content: "\e9a2";
 }
-.icon-crescent:before {
+.icon-cloudy-12:before {
   content: "\e9a3";
 }
-.icon-crescent-moon:before {
+.icon-crescent:before {
   content: "\e9a4";
 }
-.icon-crescent-moon-1:before {
+.icon-crescent-moon:before {
   content: "\e9a5";
 }
-.icon-crescent-moon-2:before {
+.icon-crescent-moon-1:before {
   content: "\e9a6";
 }
-.icon-dawn:before {
+.icon-crescent-moon-2:before {
   content: "\e9a7";
 }
-.icon-dawn-1:before {
+.icon-dawn:before {
   content: "\e9a8";
 }
-.icon-dawn-2:before {
+.icon-dawn-1:before {
   content: "\e9a9";
 }
-.icon-hail2:before {
+.icon-dawn-2:before {
   content: "\e9aa";
 }
-.icon-hail-1:before {
+.icon-hail2:before {
   content: "\e9ab";
 }
-.icon-hail-2:before {
+.icon-hail-1:before {
   content: "\e9ac";
 }
-.icon-hail-3:before {
+.icon-hail-2:before {
   content: "\e9ad";
 }
-.icon-hail-4:before {
+.icon-hail-3:before {
   content: "\e9ae";
 }
-.icon-hail-5:before {
+.icon-hail-4:before {
   content: "\e9af";
 }
-.icon-hail-6:before {
+.icon-hail-5:before {
   content: "\e9b0";
 }
-.icon-hail-7:before {
+.icon-hail-6:before {
   content: "\e9b1";
 }
-.icon-hail-8:before {
+.icon-hail-7:before {
   content: "\e9b2";
 }
-.icon-haze2:before {
+.icon-hail-8:before {
   content: "\e9b3";
 }
-.icon-haze-12:before {
+.icon-haze2:before {
   content: "\e9b4";
 }
-.icon-haze-2:before {
+.icon-haze-12:before {
   content: "\e9b5";
 }
-.icon-haze-3:before {
+.icon-haze-2:before {
   content: "\e9b6";
 }
-.icon-haze-4:before {
+.icon-haze-3:before {
   content: "\e9b7";
 }
-.icon-haze-5:before {
+.icon-haze-4:before {
   content: "\e9b8";
 }
-.icon-moon:before {
+.icon-haze-5:before {
   content: "\e9b9";
 }
-.icon-moon-1:before {
+.icon-moon:before {
   content: "\e9ba";
 }
-.icon-new-moon:before {
+.icon-moon-1:before {
   content: "\e9bb";
 }
-.icon-quarter:before {
+.icon-new-moon:before {
   content: "\e9bc";
 }
-.icon-quarter-1:before {
+.icon-quarter:before {
   content: "\e9bd";
 }
-.icon-rain3:before {
+.icon-quarter-1:before {
   content: "\e9be";
 }
-.icon-rain-13:before {
+.icon-rain3:before {
   content: "\e9bf";
 }
-.icon-rain-22:before {
+.icon-rain-13:before {
   content: "\e9c0";
 }
-.icon-rain-32:before {
+.icon-rain-22:before {
   content: "\e9c1";
 }
-.icon-rain-42:before {
+.icon-rain-32:before {
   content: "\e9c2";
 }
-.icon-rain-52:before {
+.icon-rain-42:before {
   content: "\e9c3";
 }
-.icon-rain-62:before {
+.icon-rain-52:before {
   content: "\e9c4";
 }
-.icon-rain-72:before {
+.icon-rain-62:before {
   content: "\e9c5";
 }
-.icon-rain-82:before {
+.icon-rain-72:before {
   content: "\e9c6";
 }
-.icon-rain-92:before {
+.icon-rain-82:before {
   content: "\e9c7";
 }
-.icon-rain-102:before {
+.icon-rain-92:before {
   content: "\e9c8";
 }
-.icon-rain-112:before {
+.icon-rain-102:before {
   content: "\e9c9";
 }
-.icon-rain-123:before {
+.icon-rain-112:before {
   content: "\e9ca";
 }
-.icon-rain-132:before {
+.icon-rain-123:before {
   content: "\e9cb";
 }
-.icon-rain-14:before {
+.icon-rain-132:before {
   content: "\e9cc";
 }
-.icon-snow:before {
+.icon-rain-14:before {
   content: "\e9cd";
 }
-.icon-snow-1:before {
+.icon-snow:before {
   content: "\e9ce";
 }
-.icon-snow-2:before {
+.icon-snow-1:before {
   content: "\e9cf";
 }
-.icon-snowflake3:before {
+.icon-snow-2:before {
   content: "\e9d0";
 }
-.icon-storm3:before {
+.icon-snowflake3:before {
   content: "\e9d1";
 }
-.icon-storm-13:before {
+.icon-storm3:before {
   content: "\e9d2";
 }
-.icon-storm-22:before {
+.icon-storm-13:before {
   content: "\e9d3";
 }
-.icon-sun3:before {
+.icon-storm-22:before {
   content: "\e9d4";
 }
-.icon-sunglasses:before {
+.icon-sun3:before {
   content: "\e9d5";
 }
-.icon-sunset:before {
+.icon-sunglasses:before {
   content: "\e9d6";
 }
-.icon-sunset-1:before {
+.icon-sunset:before {
   content: "\e9d7";
 }
-.icon-thermometer4:before {
+.icon-sunset-1:before {
   content: "\e9d8";
 }
-.icon-thermometer-15:before {
+.icon-thermometer4:before {
   content: "\e9d9";
 }
-.icon-thermometer-24:before {
+.icon-thermometer-15:before {
   content: "\e9da";
 }
-.icon-thermometer-33:before {
+.icon-thermometer-24:before {
   content: "\e9db";
 }
-.icon-umbrella2:before {
+.icon-thermometer-33:before {
   content: "\e9dc";
 }
-.icon-weathercock:before {
+.icon-umbrella2:before {
   content: "\e9dd";
 }
-.icon-wind3:before {
+.icon-weathercock:before {
   content: "\e9de";
 }
-.icon-wind-12:before {
+.icon-wind3:before {
   content: "\e9df";
 }
-.icon-wind-2:before {
+.icon-wind-12:before {
   content: "\e9e0";
 }
-.icon-wind-3:before {
+.icon-wind-2:before {
   content: "\e9e1";
 }
-.icon-wind-4:before {
+.icon-wind-3:before {
   content: "\e9e2";
 }
-.icon-wind-5:before {
+.icon-wind-4:before {
   content: "\e9e3";
 }
-.icon-bolt:before {
+.icon-wind-5:before {
   content: "\e9e4";
 }
-.icon-celsius:before {
+.icon-bolt:before {
   content: "\e9e5";
 }
-.icon-cloud4:before {
+.icon-celsius:before {
   content: "\e9e6";
 }
-.icon-cloud-13:before {
+.icon-cloud4:before {
   content: "\e9e7";
 }
-.icon-clouds2:before {
+.icon-cloud-13:before {
   content: "\e9e8";
 }
-.icon-cloudy4:before {
+.icon-clouds2:before {
   content: "\e9e9";
 }
-.icon-drop:before {
+.icon-cloudy4:before {
   content: "\e9ea";
 }
-.icon-eclipse:before {
+.icon-drop:before {
   content: "\e9eb";
 }
-.icon-fahrenheit:before {
+.icon-eclipse:before {
   content: "\e9ec";
 }
-.icon-hail3:before {
+.icon-fahrenheit:before {
   content: "\e9ed";
 }
-.icon-moon2:before {
+.icon-hail3:before {
   content: "\e9ee";
 }
-.icon-moon-12:before {
+.icon-moon2:before {
   content: "\e9ef";
 }
-.icon-moon-2:before {
+.icon-moon-12:before {
   content: "\e9f0";
 }
-.icon-moon-3:before {
+.icon-moon-2:before {
   content: "\e9f1";
 }
-.icon-moon-4:before {
+.icon-moon-3:before {
   content: "\e9f2";
 }
-.icon-moon-5:before {
+.icon-moon-4:before {
   content: "\e9f3";
 }
-.icon-moon-6:before {
+.icon-moon-5:before {
   content: "\e9f4";
 }
-.icon-planet-earth:before {
+.icon-moon-6:before {
   content: "\e9f5";
 }
-.icon-rain4:before {
+.icon-planet-earth:before {
   content: "\e9f6";
 }
-.icon-rain-15:before {
+.icon-rain4:before {
   content: "\e9f7";
 }
-.icon-rain-23:before {
+.icon-rain-15:before {
   content: "\e9f8";
 }
-.icon-rain-33:before {
+.icon-rain-23:before {
   content: "\e9f9";
 }
-.icon-snowflake4:before {
+.icon-rain-33:before {
   content: "\e9fa";
 }
-.icon-storm4:before {
+.icon-snowflake4:before {
   content: "\e9fb";
 }
-.icon-sun4:before {
+.icon-storm4:before {
   content: "\e9fc";
 }
-.icon-thermometer5:before {
+.icon-sun4:before {
   content: "\e9fd";
 }
-.icon-thermometer-16:before {
+.icon-thermometer5:before {
   content: "\e9fe";
 }
-.icon-thermometer-25:before {
+.icon-thermometer-16:before {
   content: "\e9ff";
 }
-.icon-tornado2:before {
+.icon-thermometer-25:before {
   content: "\ea00";
 }
-.icon-wind4:before {
+.icon-tornado2:before {
   content: "\ea01";
 }
-.icon-cloud5:before {
+.icon-wind4:before {
   content: "\ea02";
 }
-.icon-cloud-14:before {
+.icon-cloud5:before {
   content: "\ea03";
 }
-.icon-cloud-3:before {
+.icon-cloud-14:before {
   content: "\ea04";
 }
-.icon-cloudy5:before {
+.icon-cloud-3:before {
   content: "\ea05";
 }
-.icon-cloudy-13:before {
+.icon-cloudy5:before {
   content: "\ea06";
 }
-.icon-cloudy-2:before {
+.icon-cloudy-13:before {
   content: "\ea07";
 }
-.icon-cloudy-night:before {
+.icon-cloudy-2:before {
   content: "\ea08";
 }
-.icon-day:before {
+.icon-cloudy-night:before {
   content: "\ea09";
 }
-.icon-fogg:before {
+.icon-day:before {
   content: "\ea0a";
 }
-.icon-heat-1:before {
+.icon-fogg:before {
   content: "\ea0b";
 }
-.icon-heat-2:before {
+.icon-heat-1:before {
   content: "\ea0c";
 }
-.icon-light-bolt:before {
+.icon-heat-2:before {
   content: "\ea0d";
 }
-.icon-light-bolt-1:before {
+.icon-light-bolt:before {
   content: "\ea0e";
 }
-.icon-moon3:before {
+.icon-light-bolt-1:before {
   content: "\ea0f";
 }
-.icon-moon-13:before {
+.icon-moon3:before {
   content: "\ea10";
 }
-.icon-moon-22:before {
+.icon-moon-13:before {
   content: "\ea11";
 }
-.icon-moon-32:before {
+.icon-moon-22:before {
   content: "\ea12";
 }
-.icon-moon-42:before {
+.icon-moon-32:before {
   content: "\ea13";
 }
-.icon-rain5:before {
+.icon-moon-42:before {
   content: "\ea14";
 }
-.icon-rain-16:before {
+.icon-rain5:before {
   content: "\ea15";
 }
-.icon-rain-24:before {
+.icon-rain-16:before {
   content: "\ea16";
 }
-.icon-rain-34:before {
+.icon-rain-24:before {
   content: "\ea17";
 }
-.icon-rain-43:before {
+.icon-rain-34:before {
   content: "\ea18";
 }
-.icon-rain-53:before {
+.icon-rain-43:before {
   content: "\ea19";
 }
-.icon-rain-63:before {
+.icon-rain-53:before {
   content: "\ea1a";
 }
-.icon-rain-73:before {
+.icon-rain-63:before {
   content: "\ea1b";
 }
-.icon-rain-83:before {
+.icon-rain-73:before {
   content: "\ea1c";
 }
-.icon-rain-93:before {
+.icon-rain-83:before {
   content: "\ea1d";
 }
-.icon-rainbow2:before {
+.icon-rain-93:before {
   content: "\ea1e";
 }
-.icon-rainbow-12:before {
+.icon-rainbow2:before {
   content: "\ea1f";
 }
-.icon-sky:before {
+.icon-rainbow-12:before {
   content: "\ea20";
 }
-.icon-sky-1:before {
+.icon-sky:before {
   content: "\ea21";
 }
-.icon-snow2:before {
+.icon-sky-1:before {
   content: "\ea22";
 }
-.icon-snowflake5:before {
+.icon-snow2:before {
   content: "\ea23";
 }
-.icon-snowing2:before {
+.icon-snowflake5:before {
   content: "\ea24";
 }
-.icon-snowing-12:before {
+.icon-snowing2:before {
   content: "\ea25";
 }
-.icon-sun-12:before {
+.icon-snowing-12:before {
   content: "\ea26";
 }
-.icon-sunrise:before {
+.icon-sun-12:before {
   content: "\ea27";
 }
-.icon-sunrise-1:before {
+.icon-sunrise:before {
   content: "\ea28";
 }
-.icon-sunset2:before {
+.icon-sunrise-1:before {
   content: "\ea29";
 }
-.icon-sunset-12:before {
+.icon-sunset2:before {
   content: "\ea2a";
 }
-.icon-temperature3:before {
+.icon-sunset-12:before {
   content: "\ea2b";
 }
-.icon-temperature-13:before {
+.icon-temperature3:before {
   content: "\ea2c";
 }
-.icon-thermometer6:before {
+.icon-temperature-13:before {
   content: "\ea2d";
 }
-.icon-thermometer-17:before {
+.icon-thermometer6:before {
   content: "\ea2e";
 }
-.icon-thermometer-26:before {
+.icon-thermometer-17:before {
   content: "\ea2f";
 }
-.icon-thermometer-34:before {
+.icon-thermometer-26:before {
   content: "\ea30";
 }
-.icon-thunder:before {
+.icon-thermometer-34:before {
   content: "\ea31";
 }
-.icon-tornado3:before {
+.icon-thunder:before {
   content: "\ea32";
 }
-.icon-waves:before {
+.icon-tornado3:before {
   content: "\ea33";
 }
-.icon-wind5:before {
+.icon-waves:before {
   content: "\ea34";
 }
-.icon-wind-13:before {
+.icon-wind5:before {
   content: "\ea35";
 }
-.icon-wind-22:before {
+.icon-wind-13:before {
   content: "\ea36";
 }
-.icon-wind-32:before {
+.icon-wind-22:before {
   content: "\ea37";
 }
-.icon-windy2:before {
+.icon-wind-32:before {
   content: "\ea38";
+}
+.icon-windy2:before {
+  content: "\ea39";
+}
+.icon-home2:before {
+  content: "\ea3a";
+}
+.icon-house-floor:before {
+  content: "\ea3b";
+}
+.icon-house-simple:before {
+  content: "\ea3c";
+}
+.icon-away:before {
+  content: "\ea3d";
+}
+.icon-holiday:before {
+  content: "\ea3e";
+}
+.icon-work:before {
+  content: "\ea3f";
 }
 

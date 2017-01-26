@@ -66,12 +66,15 @@ const updateView = function ($scope) {
 	const d = new Date();
 	$scope.percentInDay = getPercentInDay();
 	$scope.currentTime = `${pad(d.getHours(), 2)}:${pad(d.getMinutes(), 2)}`;
+	$scope.currentDate = d;
 
 	$scope.targetTemp = getCurrentTemp($scope.todaysPlan.plan.ref);
 };
 
 module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', function ($scope, $http, socketio, loginStatus) {
 	loginStatus.check();
+
+	$scope.lastUpdate = null;
 
 	$scope.targetTemp = 0;
 
@@ -93,6 +96,8 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	$scope.isHeatingOn = false;
 	$scope.init = false;
 
+	$scope.initInProgress = false;
+
 	$scope.roomIdToLabel = {
 		1: "Bedroom",
 		2: "Kitchen"
@@ -102,6 +107,8 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 
 
 	const handleServerData = function (data) {
+		$scope.lastUpdate = new Date();
+
 		if (data.outside) {
 			$scope.outside.temp = data.outside.temperature;
 			$scope.outside.humi = data.outside.humidity;
@@ -178,7 +185,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			$scope.statisticsForToday = data.statisticsForToday;
 		}
 
-		if (data.heatingHistoryLast24) {
+		if (data.heatingHistoryLast24 && data.heatingHistoryLast24.length) {
 			new Chart(document.querySelector('#heatingHistoryChart'), {
 				type: 'line',
 				options: {
@@ -258,9 +265,9 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	};
 
 	const init = function () {
-		$http.get(`/api/init?_=${new Date().getTime()}`).then((response) => {
-			console.log(response);
+		$scope.initInProgress = true;
 
+		$http.get(`/api/init?_=${new Date().getTime()}`).then((response) => {
 			if (response.data && response.data.data) {
 				const data = response.data.data;
 
@@ -269,9 +276,12 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 				$scope.todaysPlan = $scope.heatingDefaultPlans[new Date().getDay()];
 
 				updateView($scope);
-				setInterval(() => {
-					updateView($scope);
-				}, 60000);
+
+				if (!$scope.init) {
+					setInterval(() => {
+						updateView($scope);
+					}, 60000);
+				}
 
 				$scope.init = true;
 
@@ -295,7 +305,10 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 					}
 				});
 			}
+
+			$scope.initInProgress = false;
 		}, (err) => {
+			$scope.initInProgress = false;
 			console.log(err);
 		});
 	};
@@ -339,6 +352,10 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 
 	$scope.scope = function () {
 		return $scope;
+	};
+
+	$scope.refresh = function () {
+		init();
 	};
 
 	init();

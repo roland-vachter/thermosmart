@@ -2,6 +2,18 @@
 @import './scss/bootstrap-helpers';
 
 @import './scss/assets';
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url($assets-in-app-global-path + 'fonts/icomoon.eot?hxi1c');
+  src:  url($assets-in-app-global-path + 'fonts/icomoon.eot?hxi1c#iefix') format('embedded-opentype'),
+    url($assets-in-app-global-path + 'fonts/icomoon.ttf?hxi1c') format('truetype'),
+    url($assets-in-app-global-path + 'fonts/icomoon.woff?hxi1c') format('woff'),
+    url($assets-in-app-global-path + 'fonts/icomoon.svg?hxi1c#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @import './scss/icons';
 @import './scss/colors';
 @import './scss/termo-status';
@@ -12,6 +24,13 @@
 @import './scss/thermo-select-plan-modal';
 
 @import './scss/responsive-calendar';
+
+@keyframes spin {
+	0% {}
+	100% {
+		transform: rotate(360deg);
+	}
+}
 
 * {
 	outline: 0;
@@ -26,6 +45,15 @@
 	width: 100%;
 	padding: 5px 0;
 	font-family: 'Jura';
+}
+
+.thermo-refresh {
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.thermo-spin {
+	animation: spin 1s 16 ease;
 }
 
 html {
