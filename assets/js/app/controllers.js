@@ -74,14 +74,10 @@ const updateView = function ($scope) {
 module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', function ($scope, $http, socketio, loginStatus) {
 	loginStatus.check();
 
-	$scope.userAgent = navigator.userAgent;
-
 	let isMobileApp = false;
 	if (navigator.userAgent.includes('wv')) {
 		isMobileApp = true;
 	}
-
-	$scope.isMobileApp = isMobileApp;
 
 	$scope.lastUpdate = null;
 
