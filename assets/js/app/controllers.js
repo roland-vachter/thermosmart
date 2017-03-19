@@ -74,6 +74,13 @@ const updateView = function ($scope) {
 module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', function ($scope, $http, socketio, loginStatus) {
 	loginStatus.check();
 
+	$scope.userAgent = navigator.userAgent;
+
+	let isMobileApp = false;
+	if (navigator.userAgent === 'Mobile app') {
+		isMobileApp = true;
+	}
+
 	$scope.lastUpdate = null;
 
 	$scope.targetTemp = 0;
@@ -106,7 +113,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	const dayNameByIndex = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 
-	const handleServerData = function (data) {
+	const handleServerData = function (data, initialData) {
 		$scope.lastUpdate = new Date();
 
 		if (data.outside) {
@@ -185,7 +192,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			$scope.statisticsForToday = data.statisticsForToday;
 		}
 
-		if (data.heatingHistoryLast24 && data.heatingHistoryLast24.length) {
+		if (data.heatingHistoryLast24 && data.heatingHistoryLast24.length && (!isMobileApp || initialData)) {
 			new Chart(document.querySelector('#heatingHistoryChart'), {
 				type: 'line',
 				options: {
@@ -196,14 +203,10 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 					datasets: [{
 						label: 'Heating status',
 						data: [
-							{
-								x: data.heatingHistoryLast24[0].datetime,
-								y: 0
-							},
 							...data.heatingHistoryLast24.map(item => {return {x: item.datetime, y: item.status ? 10 : 0}; }),
 							{
 								x: new Date(),
-								y: $scope.isHeatingOn
+								y: $scope.isHeatingOn ? 10 : 0
 							}
 						],
 						steppedLine: true,
@@ -248,7 +251,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 						yAxes: [{
 							ticks: {
 								callback: function(value) {
-									return value === 0 ? 'Off' : value === 1 ? 'On' : '';
+									return value === 0 ? 'Off' : value === 10 ? 'On' : '';
 								},
 								fixedStepSize: 1,
 								min: 0,
@@ -271,7 +274,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			if (response.data && response.data.data) {
 				const data = response.data.data;
 
-				handleServerData(data);
+				handleServerData(data, true);
 
 				$scope.todaysPlan = $scope.heatingDefaultPlans[new Date().getDay()];
 
