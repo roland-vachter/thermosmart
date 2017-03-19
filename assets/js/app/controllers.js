@@ -77,9 +77,11 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	$scope.userAgent = navigator.userAgent;
 
 	let isMobileApp = false;
-	if (navigator.userAgent === 'Mobile app') {
+	if (navigator.userAgent.includes('wv')) {
 		isMobileApp = true;
 	}
+
+	$scope.isMobileApp = isMobileApp;
 
 	$scope.lastUpdate = null;
 
