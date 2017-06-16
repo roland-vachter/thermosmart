@@ -3,5 +3,6 @@
 "use strict";
 
 module.exports = angular.module('thermoSmart', [
-	'ngRoute'
+	'ngRoute',
+	'ui.bootstrap'
 ]);

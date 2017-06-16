@@ -105,3 +105,20 @@ h6 {
 .visible-even > :nth-child(odd) {
 	display: none;
 }
+
+.reset-button {
+	border: 0;
+	background: none;
+}
+
+.thermo-header {
+	.dropdown-menu {
+		.dropdown-header {
+			font-size: 2.1rem;
+		}
+
+		li {
+			font-size: 1.5rem;
+		}
+	}
+}
