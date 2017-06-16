@@ -100,6 +100,9 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 	$scope.todaysPlan = {};
 	$scope.isHeatingOn = false;
 	$scope.init = false;
+	$scope.statisticsForToday = {
+		heatingDuration: 0
+	};
 
 	$scope.initInProgress = false;
 
