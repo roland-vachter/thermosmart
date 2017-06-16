@@ -190,7 +190,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			$scope.statisticsForToday = data.statisticsForToday;
 		}
 
-		if (data.heatingHistoryLast24 && data.heatingHistoryLast24.length && (!isMobileApp || initialData)) {
+		if ((data.heatingHistoryLast24 && data.heatingHistoryLast24.length && !isMobileApp) || initialData) {
 			new Chart(document.querySelector('#heatingHistoryChart'), {
 				type: 'line',
 				options: {
@@ -201,6 +201,10 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 					datasets: [{
 						label: 'Heating status',
 						data: [
+							{
+								x: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+								y: data.heatingHistoryLast24.length ? (data.heatingHistoryLast24[0].status ? 10 : 0) : 0
+							},
 							...data.heatingHistoryLast24.map(item => {return {x: item.datetime, y: item.status ? 10 : 0}; }),
 							{
 								x: new Date(),
