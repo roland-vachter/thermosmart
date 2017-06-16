@@ -34,6 +34,7 @@
 					<i class="icon-house-simple thermo-status--house-icon color-gray"></i>
 
 					<i class="icon-air-conditioner-3 thermo-status--icon color-{{isHeatingOn ? 'olive' : 'gray'}}"></i>
+					<i class="icon-{{isArmed ? 'padlock' : 'padlock-1'}} thermo-status--icon-lock color-{{isArmed ? 'red' : 'green'}}"></i>
 					<div class="thermo-status--value thermo-status--temp">
 						<i class="icon-thermometer6"></i> <span ng-bind-html="inside.temp | float"></span>
 					</div>
