@@ -6,18 +6,19 @@
 .thermo-status--house-icon {
 	font-size: 24rem;
 	font-weight: 100;
+	margin: 0 -1rem;
 }
 
 .thermo-status--icon {
 	position: absolute;
-	left: 101px;
+	left: 92px;
 	top: 30px;
 	font-size: 4.5rem;
 }
 
 .thermo-status--icon-lock {
 	position: absolute;
-	left: 157px;
+	left: 142px;
 	top: 82px;
 	font-size: 4.5rem;
 }
@@ -37,7 +38,7 @@
 
 	.thermo-status--value {
 		position: absolute;
-		left: 56px;
+		left: 40px;
 	}
 
 	.thermo-status--temp {
