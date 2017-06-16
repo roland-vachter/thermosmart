@@ -13,8 +13,6 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-sass": "~3.3.7",
-    "bind.js": "^1.1.1",
-    "angular-ui-router": "^0.3.2"
+    "bootstrap-sass": "~3.3.7"
   }
 }
