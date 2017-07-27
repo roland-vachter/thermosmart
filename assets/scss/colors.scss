@@ -48,3 +48,9 @@ $colors: (
 		background-color: $color;
 	}
 }
+
+@each $name, $color in $colors {
+	.color-border-#{$name} {
+		border-color: $color;
+	}
+}

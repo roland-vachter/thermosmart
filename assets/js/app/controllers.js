@@ -4,6 +4,16 @@
 
 const module = require('./module');
 
+const SECURITY_STATUSES = {
+	DISARMED: 'disarmed',
+	ARMING: 'arming',
+	ARMED: 'armed',
+	PREACTIVATED: 'preactivated',
+	ACTIVATED: 'activated'
+};
+
+const SECURITY_ARMED_STATUSES = [SECURITY_STATUSES.ARMED, SECURITY_STATUSES.PREACTIVATED, SECURITY_STATUSES.ACTIVATED];
+
 function pad(num, size) {
 	let s = num+"";
 	while (s.length < size) s = "0" + s;
@@ -71,7 +81,7 @@ const updateView = function ($scope) {
 	$scope.targetTemp = getCurrentTemp($scope.todaysPlan.plan.ref);
 };
 
-module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', function ($scope, $http, socketio, loginStatus) {
+module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', 'passcode', function ($scope, $http, socketio, loginStatus, passcode) {
 	loginStatus.check();
 
 	let isMobileApp = false;
@@ -81,16 +91,21 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 
 	$scope.lastUpdate = null;
 
+	$scope.security = SECURITY_STATUSES.DISARMED;
+
+	$scope.SECURITY_STATUSES = SECURITY_STATUSES;
+	$scope.SECURITY_ARMED_STATUSES = SECURITY_ARMED_STATUSES;
+
 	$scope.targetTemp = 0;
 
 	$scope.inside = {
-		temp: NaN,
-		humi: NaN
+		temp: 0,
+		humi: 0
 	};
 
 	$scope.outside = {
-		temp: NaN,
-		humi: NaN,
+		temp: 0,
+		humi: 0,
 		weatherIconClass: ''
 	};
 
@@ -268,6 +283,10 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 			});
 		}
 
+		if (data.security) {
+			$scope.security = data.security.status;
+		}
+
 		$scope.todaysPlan = $scope.heatingDefaultPlans[new Date().getDay()];
 		updateView($scope);
 	};
@@ -294,7 +313,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 				$scope.init = true;
 
 
-				$(".responsive-calendar").responsiveCalendar({
+				/*$(".responsive-calendar").responsiveCalendar({
 					time: '2016-12',
 					events: {
 						"2016-12-30": {
@@ -311,7 +330,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 						},
 						"2016-12-12": {}
 					}
-				});
+				});*/
 			}
 
 			$scope.initInProgress = false;
@@ -330,6 +349,28 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', fun
 		$http.post('/api/tempadjust', {
 			_id: id,
 			value: $scope.temps[id].ref.value
+		});
+	};
+
+	$scope.securityToggleAlarm = function () {
+		passcode.check().then(result => {
+			if (result.status === 'valid') {
+				$http.post('/api/securitytogglealarm');
+
+				switch ($scope.security) {
+					case SECURITY_STATUSES.DISARMED:
+						$scope.security = SECURITY_STATUSES.ARMING;
+						break;
+
+					case SECURITY_STATUSES.ARMING:
+						$scope.security = SECURITY_STATUSES.DISARMED;
+						break;
+
+					default:
+						$scope.security = SECURITY_STATUSES.DISARMED;
+						break;
+				}
+			}
 		});
 	};
 

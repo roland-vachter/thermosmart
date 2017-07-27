@@ -43,16 +43,20 @@
 				</div>
 
 				<div class="thermo-status--inside">
-					<i class="icon-house-simple thermo-status--house-icon color-gray"></i>
+					<i class="icon-house-simple thermo-status--house-icon color-{{security === SECURITY_STATUSES.PREACTIVATED ? 'orange' : security === SECURITY_STATUSES.ACTIVATED ? 'red' : 'gray'}}"></i>
 
 					<i class="icon-air-conditioner-3 thermo-status--icon color-{{isHeatingOn ? 'olive' : 'gray'}}"></i>
-					<i class="icon-{{isArmed ? 'padlock-closed' : 'padlock-open'}} thermo-status--icon-lock color-{{isArmed ? 'red' : 'green'}}"></i>
+					<i class="icon-{{security === SECURITY_STATUSES.ARMED ? 'padlock-closed' : 'padlock-open'}} thermo-status--icon-lock color-{{SECURITY_ARMED_STATUSES.includes(security) ? 'red' : security === SECURITY_STATUSES.ARMING ? 'orange' : 'green'}}" ng-click="scope().securityToggleAlarm()"></i>
 					<div class="thermo-status--value thermo-status--temp">
 						<i class="icon-thermometer6"></i> <span ng-bind-html="inside.temp | float"></span>
 					</div>
 
 					<div class="thermo-status--value thermo-status--humi">
 						<i class="icon-humidity"></i> {{inside.humi}}
+					</div>
+
+					<div class="thermo-status--run-duration">
+						<i class="icon-fire"></i> {{statisticsForToday.heatingDuration | duration}}
 					</div>
 				</div>
 			</div>
@@ -94,14 +98,6 @@
 						<div class="thermo-room--label">{{roomIdToLabel[id] || id}} ({{id}})</div>
 						<i class="icon-thermometer6"></i> <span ng-bind-html="data.temperature | float"></span> <i class="icon-humidity"></i> {{data.humidity}}
 					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-xs-12">
-			<div class="thermo-component">
-				<div>
-					Heating run: {{statisticsForToday.heatingDuration | duration}}
 				</div>
 			</div>
 		</div>
@@ -262,6 +258,50 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="modal fade security-keypad--modal" id="security-keypad-modal" tabindex="-1" role="dialog" aria-labelledby="security-keypad">
+	<div class="modal-dialog modal-md" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="security-keypad-label">Passcode</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-12">
+						 <div class="form-group">
+							<input type="password" class="form-control" id="security-passcode" placeholder="Passcode" disabled>
+						</div>
+					</div>
+				</div>
+				<div class="row keypad-row" ng-repeat="row in [0,1,2]">
+					<div class="col-xs-4" ng-repeat="number in [1,2,3]">
+						<button type="button" data-value="{{row * 3 + number}}" class="col-xs-12 btn btn-default btn-lg">{{row * 3 + number}}</button>
+					</div>
+				</div>
+
+				<div class="row keypad-row">
+					<div class="col-xs-4">
+						<button type="button" data-value="Delete" class="col-xs-12 btn btn-default btn-lg">Del</button>
+					</div>
+
+					<div class="col-xs-4">
+						<button type="button" data-value="0" class="col-xs-12 btn btn-default btn-lg">0</button>
+					</div>
+
+					<div class="col-xs-4">
+						<button type="button" data-value="Backspace" class="col-xs-12 btn btn-default btn-lg">Clr</button>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 			</div>
 		</div>
 	</div>
