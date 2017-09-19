@@ -181,7 +181,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', 'pa
 					$scope.heatingPlans[heatingPlan._id] = {};
 				}
 
-				$scope.heatingPlans[heatingPlan._id].ref = heatingPlan;
+				$scope.heatingPlans[heatingPlan._id].ref = Object.assign({}, heatingPlan);
 
 				heatingPlan.intervals.forEach(override => {
 					override.temp = $scope.temps[override.temp];
@@ -197,10 +197,10 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', 'pa
 					$scope.heatingDefaultPlans[heatingPlan.dayOfWeek] = {};
 				}
 
-				$scope.heatingDefaultPlans[heatingPlan.dayOfWeek] = heatingPlan;
+				$scope.heatingDefaultPlans[heatingPlan.dayOfWeek] = Object.assign({}, heatingPlan);
 
-				heatingPlan.plan = $scope.heatingPlans[heatingPlan.plan];
-				heatingPlan.nameOfDay = dayNameByIndex[heatingPlan.dayOfWeek];
+				$scope.heatingDefaultPlans[heatingPlan.dayOfWeek].plan = $scope.heatingPlans[heatingPlan.plan];
+				$scope.heatingDefaultPlans[heatingPlan.dayOfWeek].nameOfDay = dayNameByIndex[heatingPlan.dayOfWeek];
 			});
 		}
 
