@@ -221,7 +221,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', 'pa
 						data: [
 							{
 								x: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-								y: data.heatingHistoryLast24.length ? (data.heatingHistoryLast24[0].status ? 10 : 0) : 0
+								y: data.heatingHistoryLast24.length ? (data.heatingHistoryLast24[0].status ? 0 : 10) : 0
 							},
 							...data.heatingHistoryLast24.map(item => {return {x: item.datetime, y: item.status ? 10 : 0}; }),
 							{
