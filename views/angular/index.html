@@ -28,11 +28,11 @@
 	<div class="row" style="{{init ? '' : 'display:none;'}}">
 		<div class="col-xs-12 col-sm-6 col-lg-4">
 			<div class="thermo-component thermo-status">
-				<div class="thermo-status--weather">
-					<i class="{{outside.weatherIconClass}}"></i>
-				</div>
-
 				<div class="thermo-status--outside">
+					<div class="thermo-status--weather">
+						<i class="{{outside.weatherIconClass}}"></i>
+					</div>
+
 					<div class="thermo-status--value thermo-status--temp">
 						<i class="icon-thermometer6"></i> <span ng-bind-html="outside.temp | float"></span>
 					</div>
@@ -59,13 +59,13 @@
 						<i class="icon-fire"></i> {{statisticsForToday.heatingDuration | duration}}
 					</div>
 				</div>
+			</div>
 
-				<div class="thermo-target">
-					<div class="thermo-target--control">
-						<button type="button" class="thermo-target--button thermo-target--decrease" ng-click="scope().tempAdjust(targetTemp.ref._id, -0.1)">-</button>
-						<span class="thermo-target--value color-{{targetTemp.ref.color}}"><span ng-bind-html="targetTemp.ref.value | float"></span> &deg;C</span>
-						<button type="button" class="thermo-target--button thermo-target--increase" ng-click="scope().tempAdjust(targetTemp.ref._id, 0.1)">+</button>
-					</div>
+			<div class="thermo-component thermo-target">
+				<div class="thermo-target--control">
+					<button type="button" class="thermo-target--button thermo-target--decrease" ng-click="scope().tempAdjust(targetTemp.ref._id, -0.1)">-</button>
+					<span class="thermo-target--value color-{{targetTemp.ref.color}}"><span ng-bind-html="targetTemp.ref.value | float"></span> &deg;C</span>
+					<button type="button" class="thermo-target--button thermo-target--increase" ng-click="scope().tempAdjust(targetTemp.ref._id, 0.1)">+</button>
 				</div>
 			</div>
 		</div>
