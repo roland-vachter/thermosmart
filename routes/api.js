@@ -13,5 +13,6 @@ router.post('/tempadjust', loginMiddleware, cors(), apiCtrl.tempAdjust);
 router.post('/changedefaultplan', loginMiddleware, cors(), apiCtrl.changeDefaultPlan);
 router.post('/securitytogglealarm', loginMiddleware, cors(), apiCtrl.securityToggleAlarm);
 router.get('/sensorpolling', apiKeyMiddleware, cors(), apiCtrl.sensorPolling);
+router.get('/statistics', apiCtrl.statistics);
 
 module.exports = router;
