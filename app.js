@@ -12,11 +12,12 @@ const cacheHeaders = require('./lib/utils/cacheHeaders');
 const _ = require('lodash');
 const passport = require('passport');
 const session = require('express-session');
-var MongoDBStore = require('connect-mongodb-session')(session);
+const MongoStore = require('connect-mongo')(session);
 
-var store = new MongoDBStore({
-	uri: process.env.DATABASE_URL || process.env.MONGODB_URI || process.env.MONGO_URL,
-	collection: 'sessions'
+var store = new MongoStore({
+	url: process.env.DATABASE_URL || process.env.MONGODB_URI || process.env.MONGO_URL,
+	collection: 'sessions',
+	fallbackMemory: true
 });
 
 const UserModel = require('./lib/models/User');
@@ -71,8 +72,8 @@ app.use(session({
 		maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week
 	},
 	store: store,
-	resave: true,
-	saveUninitialized: true
+	resave: false,
+	saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
