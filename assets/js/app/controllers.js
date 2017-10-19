@@ -321,7 +321,7 @@ module.controller('mainCtrl', ['$scope', '$http', 'socketio', 'loginStatus', 'pa
 
 									return str.trim();
 								},
-								fixedStepSize: 15,
+								fixedStepSize: 30,
 								min: 0
 							},
 							tooltipFormat: value => {
