@@ -1,0 +1,29 @@
+<div class="modal-content">
+	<div class="modal-header">
+		<button type="button" class="close" aria-label="Close" ng-click="$close()"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="heating-statistics-label">Heating statistics</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-12">
+				<h2>Heating today</h2>
+				<div class="thermo-component">
+					<canvas id="heatingHistoryChart" width="600" height="200"></canvas>
+				</div>
+
+				<h2>Statistics for the last 30 days</h2>
+				<div class="thermo-component">
+					<canvas id="statisticsLast30Days" width="600" height="200"></canvas>
+				</div>
+
+				<h2>Statistics this year by month</h2>
+				<div class="thermo-component">
+					<canvas id="statisticsByMonth" width="600" height="200"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" ng-click="$close()">Close</button>
+	</div>
+</div>

@@ -9,7 +9,7 @@
 					</button>
 					<ul class="dropdown-menu" uib-dropdown-menu role="menu">
 						<li class="dropdown-header">Heating</li>
-						<li><a href="#" data-toggle="modal" data-target="#heating-statistics"><i class="icon-stats"></i> Statistics</a></li>
+						<li><a href="javascript:void()" ng-click="statisticsModalOpen()"><i class="icon-stats"></i> Statistics</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#heating-config"><i class="icon-settings"></i> Config</a></li>
 						<li role="separator" class="divider"></li>
 						<li class="dropdown-header">Security</li>
@@ -240,42 +240,6 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="heating-statistics" tabindex="-1" role="dialog" aria-labelledby="heating-statistics">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="heating-statistics-label">Heating statistics</h4>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-xs-12">
-						<h2>Heating today</h2>
-						<div class="thermo-component">
-							<canvas id="heatingHistoryChart" width="600" height="200"></canvas>
-						</div>
-
-						<h2>Statistics for the last 30 days</h2>
-						<div class="thermo-component">
-							<canvas id="statisticsLast30Days" width="600" height="200"></canvas>
-						</div>
-
-						<h2>Statistics this year by month</h2>
-						<div class="thermo-component">
-							<canvas id="statisticsByMonth" width="600" height="200"></canvas>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-
 <div class="modal fade security-keypad--modal" id="security-keypad-modal" tabindex="-1" role="dialog" aria-labelledby="security-keypad">
 	<div class="modal-dialog modal-md" role="document">
 		<div class="modal-content">
