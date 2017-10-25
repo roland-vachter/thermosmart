@@ -111,7 +111,7 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 		$uibModal.open({
 			templateUrl: 'views/statistics-modal.html',
 			controller: 'modalStatisticsCtrl',
-			size: 'large'
+			size: 'lg'
 		}).result.then(() => {}, () => {});
 	};
 
