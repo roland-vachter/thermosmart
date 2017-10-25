@@ -293,7 +293,7 @@ module.controller('modalStatisticsCtrl', ['$scope', '$http', 'loginStatus', func
 		}
 
 
-		if (data.heatingHistoryLast24 && data.heatingHistoryLast24.length) {
+		if (data.statisticsForToday && data.statisticsForToday.length) {
 			new Chart(document.querySelector('#heatingHistoryChart'), {
 				type: 'line',
 				options: {
@@ -303,17 +303,7 @@ module.controller('modalStatisticsCtrl', ['$scope', '$http', 'loginStatus', func
 				data: {
 					datasets: [{
 						label: 'Heating status',
-						data: [
-							{
-								x: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
-								y: data.heatingHistoryLast24.length ? (data.heatingHistoryLast24[0].status ? 0 : 10) : 0
-							},
-							...data.heatingHistoryLast24.map(item => {return {x: item.datetime, y: item.status ? 10 : 0}; }),
-							{
-								x: new Date(),
-								y: $scope.isHeatingOn ? 10 : 0
-							}
-						],
+						data: data.statisticsForToday.map(item => {return {x: item.datetime, y: item.status ? 10 : 0}; }),
 						steppedLine: true,
 						backgroundColor: "rgba(75,192,192,0.4)",
 						borderColor: "rgba(75,192,192,1)",
