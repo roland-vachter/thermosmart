@@ -269,8 +269,8 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 		});
 	};
 
-	$scope.restart = function () {
-		$http.post('/api/restart');
+	$scope.restartSensor = function () {
+		$http.post('/api/restartsensor');
 	};
 
 	$scope.securityToggleAlarm = function () {
