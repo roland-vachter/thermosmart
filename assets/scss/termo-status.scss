@@ -82,6 +82,19 @@
 	font-size: 3rem;
 }
 
+.thermo-room--label {
+	font-size: 1.8rem;
+
+	span {
+		font-size: 1.5rem;
+		vertical-align: super;
+	}
+}
+
+.thermo-room--values {
+	padding-left: 10px;
+}
+
 .thermo-status--run-duration {
 	position: absolute;
 	top: 200px;
