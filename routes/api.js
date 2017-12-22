@@ -10,6 +10,7 @@ const cors = require('cors');
 
 router.get('/init', loginMiddleware, cors(), apiCtrl.init);
 router.post('/tempadjust', loginMiddleware, cors(), apiCtrl.tempAdjust);
+router.post('/restart', loginMiddleware, cors(), apiCtrl.restart);
 router.post('/changedefaultplan', loginMiddleware, cors(), apiCtrl.changeDefaultPlan);
 router.post('/securitytogglealarm', loginMiddleware, cors(), apiCtrl.securityToggleAlarm);
 router.get('/sensorpolling', apiKeyMiddleware, cors(), apiCtrl.sensorPolling);
