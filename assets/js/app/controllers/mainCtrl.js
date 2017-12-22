@@ -99,10 +99,11 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 	};
 
 	$scope.initInProgress = false;
+	$scope.restartInProgress = false;
 
 	$scope.roomIdToLabel = {
-		1: "Bedroom",
-		2: "Kitchen"
+		1: "Entrance",
+		2: "Small bedroom"
 	};
 
 	const dayNameByIndex = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -118,6 +119,10 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 
 	const handleServerData = function (data) {
 		$scope.lastUpdate = new Date();
+
+		if (typeof data.restartInProgress === 'Boolean') {
+			$scope.restartInProgress = data.restartInProgress;
+		}
 
 		if (data.outside) {
 			$scope.outside.temp = data.outside.temperature;
@@ -262,6 +267,10 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 			_id: id,
 			value: $scope.temps[id].ref.value
 		});
+	};
+
+	$scope.restart = function () {
+		$http.post('/api/restart');
 	};
 
 	$scope.securityToggleAlarm = function () {

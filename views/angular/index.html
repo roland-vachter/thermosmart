@@ -11,6 +11,7 @@
 						<li class="dropdown-header">Heating</li>
 						<li><a href="javascript:void()" ng-click="statisticsModalOpen()"><i class="icon-stats"></i> Statistics</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#heating-config"><i class="icon-settings"></i> Config</a></li>
+						<li><a href="javascript:void()" ng-click="restart()"><i class="icon-continuous"></i> Restart sensors</a></li>
 						<li role="separator" class="divider"></li>
 						<li class="dropdown-header">Security</li>
 					</ul>
@@ -94,7 +95,7 @@
 		<div class="col-xs-12 col-lg-4">
 			<div class="thermo-component thermo-room-temps">
 				<div ng-repeat="(id, data) in inside.individual">
-					<div class="color-{{data.active ? 'green' : 'red'}}">
+					<div class="color-{{restartInProgress ? 'yellow' : (data.active ? 'green' : 'red')}}">
 						<div class="thermo-room--label">{{roomIdToLabel[id] || id}} ({{id}})</div>
 						<i class="icon-thermometer6"></i> <span ng-bind-html="data.temperature | float"></span> <i class="icon-humidity"></i> {{data.humidity}}
 					</div>
