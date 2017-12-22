@@ -120,7 +120,7 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 	const handleServerData = function (data) {
 		$scope.lastUpdate = new Date();
 
-		if (typeof data.restartSensorInProgress === 'Boolean') {
+		if (typeof data.restartSensorInProgress === 'boolean') {
 			$scope.restartSensorInProgress = data.restartSensorInProgress;
 		}
 
