@@ -99,7 +99,7 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 	};
 
 	$scope.initInProgress = false;
-	$scope.restartInProgress = false;
+	$scope.restartSensorInProgress = false;
 
 	$scope.roomIdToLabel = {
 		1: "Entrance",
@@ -120,8 +120,8 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 	const handleServerData = function (data) {
 		$scope.lastUpdate = new Date();
 
-		if (typeof data.restartInProgress === 'Boolean') {
-			$scope.restartInProgress = data.restartInProgress;
+		if (typeof data.restartSensorInProgress === 'Boolean') {
+			$scope.restartSensorInProgress = data.restartSensorInProgress;
 		}
 
 		if (data.outside) {
