@@ -102,8 +102,9 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 	$scope.restartSensorInProgress = false;
 
 	$scope.roomIdToLabel = {
-		1: "Entrance",
-		2: "Small bedroom"
+		1: 'Entrance',
+		2: 'Small bedroom',
+		3: 'Living'
 	};
 
 	const dayNameByIndex = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
