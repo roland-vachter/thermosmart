@@ -78,12 +78,18 @@
 	}
 }
 
-.thermo-room-temps {
+.thermo-room {
 	font-size: 3rem;
-	text-align: center;
+	background: $white;
+	box-shadow: 2px 2px 9px 0px rgba(97,97,97,0.2);
+	color: $dark-grey;
+	padding: 5px;
+	box-sizing: border-box;
+	margin-bottom: 10px;
 }
 
 .thermo-room--label {
+	text-align: center;
 	font-size: 1.8rem;
 
 	span {
@@ -92,8 +98,21 @@
 	}
 }
 
-.thermo-room--values {
-	padding-left: 10px;
+.thermo-room--temperature {
+	text-align: center;
+	color: $red;
+}
+
+.thermo-room--humidity {
+	text-align: center;
+	color: $aqua;
+}
+
+.thermo-room--status {
+	float: right;
+	width: 10px;
+	height: 10px;
+	border-radius: 99px;
 }
 
 .thermo-status--run-duration {

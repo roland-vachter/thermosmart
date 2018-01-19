@@ -72,15 +72,24 @@
 		</div>
 
 		<div class="col-xs-12 col-sm-6 col-lg-4">
-			<div class="thermo-component thermo-room-temps">
+			<div class="thermo-component">
 				<div ng-repeat="(id, data) in inside.individual">
-					<div class="color-{{scope().restartSensorInProgress ? 'yellow' : (data.active ? 'green' : 'red')}}">
+					<div class="thermo-room">
+						<div class="thermo-room--status color-bg-{{scope().restartSensorInProgress ? 'yellow' : (data.active ? 'green' : 'red')}}"></div>
 						<div class="thermo-room--label">{{roomIdToLabel[id] || id}} <span>({{id}})</span></div>
-						<div class="thermo-room--values">
-							<i class="icon-thermometer6"></i>
-							<span ng-bind-html="data.temperature | float"></span>
-							<i class="icon-humidity"></i>
-							{{data.humidity}}
+						<div class="row">
+							<div class="col-xs-6">
+								<div class="thermo-room--temperature">
+									<i class="icon-thermometer6"></i>
+									<span ng-bind-html="data.temperature | float"></span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="thermo-room--humidity">
+									<i class="icon-humidity"></i>
+									{{data.humidity}}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
