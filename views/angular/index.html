@@ -72,7 +72,23 @@
 		</div>
 
 		<div class="col-xs-12 col-sm-6 col-lg-4">
-			<h3>{{todaysPlan.ref.name}}</h3>
+			<div class="thermo-component thermo-room-temps">
+				<div ng-repeat="(id, data) in inside.individual">
+					<div class="color-{{scope().restartSensorInProgress ? 'yellow' : (data.active ? 'green' : 'red')}}">
+						<div class="thermo-room--label">{{roomIdToLabel[id] || id}} <span>({{id}})</span></div>
+						<div class="thermo-room--values">
+							<i class="icon-thermometer6"></i>
+							<span ng-bind-html="data.temperature | float"></span>
+							<i class="icon-humidity"></i>
+							{{data.humidity}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-lg-4">
+			<h3>{{todaysPlan.plan.ref.name}}</h3>
 			<div class="thermo-component thermo-plan--vertical">
 				<div class="thermo-plan--current-time" style="top: {{percentInDay}}%;">
 					{{currentTime}}
@@ -88,21 +104,6 @@
 						<i class="{{interval.temp.ref.iconClass}}"></i>
 					</div>
 					<div class="thermo-plan--pointer color-bg-{{scope().targetTemp.ref.color}}" style="top: {{percentInDay}}%;"></div>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-xs-12 col-lg-4">
-			<div class="thermo-component thermo-room-temps">
-				<div ng-repeat="(id, data) in inside.individual">
-					<div class="color-{{scope().restartSensorInProgress ? 'yellow' : (data.active ? 'green' : 'red')}}">
-						<div class="thermo-room--label">{{roomIdToLabel[id] || id}} <span>({{id}})</span></div>
-						<div class="thermo-room--values">
-							<i class="icon-thermometer6"></i>
-							<span ng-bind-html="data.temperature | float"></span>
-							<i class="icon-humidity"></i>
-							{{data.humidity}}
-					</div>
 				</div>
 			</div>
 		</div>
