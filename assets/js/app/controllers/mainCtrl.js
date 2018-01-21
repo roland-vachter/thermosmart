@@ -104,7 +104,8 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 	$scope.roomIdToLabel = {
 		1: 'Entrance',
 		2: 'Small bedroom',
-		3: 'Living'
+		3: 'Living',
+		4: 'Large bedroom'
 	};
 
 	const dayNameByIndex = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
