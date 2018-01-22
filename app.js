@@ -140,6 +140,9 @@ const defaultOptions = {
 	isProd: prodEnv
 };
 
+app.set('assetsBasePath', defaultOptions.assetsBasePath);
+app.set('assetsBowerBasePath', defaultOptions.assetsBowerBasePath);
+
 app.use( function( req, res, next ) {
 	const _render = res.render;
 

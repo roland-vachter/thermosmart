@@ -38,8 +38,16 @@
 	outline: 0;
 }
 
+body {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-attachment: fixed;
+	overflow-x: hidden;
+}
+
 .navbar {
-	background: $white;
+	background: rgba(255, 255, 255, 0.95);
 	border-bottom: 1px solid $gray;
 	color: $orange;
 	font-size: 3rem;
@@ -50,6 +58,7 @@
 	position: fixed;
 	top: 0;
 	z-index: 10;
+	border-radius: 0;
 }
 
 .mainContent {
@@ -94,7 +103,12 @@ h6 {
 }
 
 .thermo-component {
-	margin-bottom: 40px;
+	background: rgba(255, 255, 255, 0.85);
+	box-shadow: 2px 2px 9px 0px rgba(97,97,97,0.2);
+	color: $dark-gray;
+	padding: 10px;
+	box-sizing: border-box;
+	margin-bottom: 10px;
 }
 
 .decimal {

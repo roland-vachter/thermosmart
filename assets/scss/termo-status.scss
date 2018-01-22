@@ -1,5 +1,6 @@
 .thermo-status {
 	margin-top: 20px;
+	margin-bottom: 20px;
 	text-align: center;
 }
 
@@ -48,7 +49,7 @@
 	}
 
 	.thermo-status--humi {
-		color: $teal;
+		color: $aqua;
 		top: 156px;
 	}
 }
@@ -80,12 +81,6 @@
 
 .thermo-room {
 	font-size: 3rem;
-	background: $white;
-	box-shadow: 2px 2px 9px 0px rgba(97,97,97,0.2);
-	color: $dark-grey;
-	padding: 5px;
-	box-sizing: border-box;
-	margin-bottom: 10px;
 }
 
 .thermo-room--label {
@@ -120,5 +115,5 @@
 	top: 200px;
 	left: 65px;
 	font-size: 1.5rem;
-	color: $gray;
+	color: $dark-gray;
 }
