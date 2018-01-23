@@ -115,7 +115,6 @@
 
 				<div class="thermo-plan--labels">
 					<div class="thermo-plan--label" ng-repeat="interval in todaysPlan.plan.ref.intervals" ng-class="{'thermo-plan--label--first': todaysPlan.plan.ref.intervals.indexOf(interval) === 0}" style="left: {{interval.labelPosition}}%">{{interval.label}}</div>
-					<div class="thermo-plan--label thermo-plan--label--last">23:59</div>
 				</div>
 			</div>
 		</div>
@@ -226,14 +225,13 @@
 							{{planToChoose.ref.name}}
 							<div class="thermo-plan--horizontal">
 								<div class="thermo-plan--chart clearfix">
-									<div class="thermo-plan--period color-{{interval.temp.ref.color}} clearfix" style="width: {{interval.blockPosition}}%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+									<div class="thermo-plan--period color-{{interval.temp.ref.color}}" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: {{interval.blockPosition}}%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
 										<i class="{{interval.temp.ref.iconClass}}"></i>
 									</div>
 								</div>
 
 								<div class="thermo-plan--labels">
 									<div class="thermo-plan--label" ng-repeat="interval in planToChoose.ref.intervals" style="left: {{interval.labelPosition}}%">{{interval.label}}</div>
-									<div class="thermo-plan--label" style="left: 100%">23:59</div>
 								</div>
 							</div>
 						</div>

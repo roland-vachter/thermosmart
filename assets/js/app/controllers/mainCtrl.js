@@ -20,7 +20,7 @@ const processPlanForDisplay = function (heatingPlan) {
 
 	heatingPlan.intervals.forEach((interval, index) => {
 		if (index === 0) {
-			interval.label = '00:00';
+			interval.label = '';
 			interval.labelPosition = 0;
 			interval.blockPosition = 0;
 		} else {
@@ -130,6 +130,10 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 			$scope.outside.temp = data.outside.temperature;
 			$scope.outside.humi = data.outside.humidity;
 			$scope.outside.weatherIconClass = data.outside.weatherIconClass;
+
+			if (data.outside.backgroundImage) {
+				document.body.backgroundImage = document.body.style.backgroundImage.substring(0, document.body.style.backgroundImage.lastIndexOf('/') + 1) + data.outside.backgroundImage;
+			}
 		}
 
 		if (data.inside) {

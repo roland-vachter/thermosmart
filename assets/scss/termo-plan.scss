@@ -75,8 +75,8 @@
 	overflow: hidden;
 
 	.thermo-plan--chart {
-		height: 50px;
 		position: relative;
+		padding: 2rem 0;
 	}
 
 	.thermo-plan--period {
@@ -91,8 +91,13 @@
 
 		i {
 			position: relative;
-			top: 5px;
-			font-size: 3rem;
+			top: -1rem;
+			font-size: 1.8rem;
+			z-index: 100;
+			background: white;
+			border-radius: 100px;
+			padding: 4px;
+			border: 2px solid;
 		}
 
 		&:before {
@@ -125,6 +130,7 @@
 		height: 20px;
 		width: 100%;
 		font-size: 1.2rem;
+		top: -0.5rem;
 	}
 
 	.thermo-plan--label {
@@ -148,6 +154,7 @@
 		position: relative;
 		margin-left: 5px;
 		font-weight: bold;
+		top: 0.5rem;
 
 		&.thermo-plan--last-part {
 			margin-left: -50px;
@@ -156,8 +163,8 @@
 
 	.thermo-plan--pointer {
 		position: absolute;
-		top: -25px;
-		height: 25px;
+		top: -1.5rem;
+		height: 3.5rem;
 		width: 2px;
 		margin-left: -1px;
 	}

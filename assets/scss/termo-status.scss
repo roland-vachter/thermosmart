@@ -37,6 +37,7 @@
 .thermo-status--inside {
 	position: relative;
 	display: inline-block;
+	margin-left: -10px;
 
 	.thermo-status--value {
 		position: absolute;
