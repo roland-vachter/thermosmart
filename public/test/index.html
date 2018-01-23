@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html ng-app="thermoSmart">
+	<head>
+		<title>SmartHome</title>
+
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<link rel="icon" type="image/png" href="/assets/VzX46EIf6l/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/assets/VzX46EIf6l/favicon-194x194.png" sizes="194x194">
+
+		<link rel="stylesheet" href="/assets/VzX46EIf6l/build/main.css" />
+		<link href="https://fonts.googleapis.com/css?family=Jura" rel="stylesheet">
+
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+		<script src="/socket.io/socket.io.js"></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular-route.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+	</head>
+	<body style="background-image: url(/assets/VzX46EIf6l/images/winter_night1.jpg)">
+		<!-- ngView: --><div ng-view="" class="ng-scope"><div class="navbar ng-scope">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 thermo-header">
+				SmartHome
+
+				<div class="pull-left">
+					<button class="dropdown-toggle icon-hamburger-menu-2 reset-button color-dark-gray" data-toggle="dropdown" role="button" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+					</button>
+					<ul class="dropdown-menu" uib-dropdown-menu="" role="menu">
+						<li class="dropdown-header">Heating</li>
+						<li><a href="javascript:void(0)" ng-click="statisticsModalOpen()"><i class="icon-stats"></i> Statistics</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#heating-config"><i class="icon-settings"></i> Config</a></li>
+						<li><a href="javascript:void(0)" ng-click="restartSensor()"><i class="icon-continuous"></i> Restart sensors</a></li>
+						<li role="separator" class="divider"></li>
+						<li class="dropdown-header">Security</li>
+					</ul>
+				</div>
+
+				<div class="pull-right">
+					<div class="thermo-refresh icon-continuous in-progress color-dark-gray" ng-class="{'color-dark-gray': currentDate - lastUpdate < 5 * 60 * 1000, 'color-orange': currentDate - lastUpdate >= 5 * 60 * 1000 &amp;&amp; currentDate - lastUpdate < 10 * 60 * 1000, 'color-red': currentDate - lastUpdate >= 10 * 60 * 1000, 'thermo-spin': initInProgress}" ng-click="refresh()"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container mainContent ng-scope">
+	<div class="row" style="">
+		<div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+			<div class="thermo-component">
+				<div class="thermo-status">
+					<div class="thermo-status--outside">
+						<div class="thermo-status--weather">
+							<i class="icon-night3"></i>
+						</div>
+
+						<div class="thermo-status--value thermo-status--temp">
+							<i class="icon-thermometer6"></i> <span ng-bind-html="outside.temp | float" class="ng-binding">0<span class="decimal">.6</span></span>
+						</div>
+
+						<div class="thermo-status--value thermo-status--humi ng-binding">
+							<i class="icon-humidity"></i> 75
+						</div>
+					</div>
+
+					<div class="thermo-status--inside">
+						<i class="icon-house-simple thermo-status--house-icon color-dark-gray"></i>
+
+						<i class="icon-air-conditioner-3 thermo-status--icon color-dark-gray"></i>
+						<i class="icon-padlock-open thermo-status--icon-lock color-green" ng-click="scope().securityToggleAlarm()"></i>
+						<div class="thermo-status--value thermo-status--temp">
+							<i class="icon-thermometer6"></i> <span ng-bind-html="inside.temp | float" class="ng-binding">21<span class="decimal">.2</span></span>
+						</div>
+
+						<div class="thermo-status--value thermo-status--humi ng-binding">
+							<i class="icon-humidity"></i> 45
+						</div>
+
+						<div class="thermo-status--run-duration ng-binding">
+							<i class="icon-fire"></i> 3h 9m
+						</div>
+					</div>
+				</div>
+
+				<div class="thermo-target">
+					<div class="thermo-target--control">
+						<button type="button" class="thermo-target--button thermo-target--decrease" ng-click="scope().tempAdjust(targetTemp.ref._id, -0.1)">-</button>
+						<span class="thermo-target--value color-olive"><span ng-bind-html="targetTemp.ref.value | float" class="ng-binding">21<span class="decimal">.0</span></span> °C</span>
+						<button type="button" class="thermo-target--button thermo-target--increase" ng-click="scope().tempAdjust(targetTemp.ref._id, 0.1)">+</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-6 col-md-7 col-lg-8">
+			<div class="row">
+				<!-- ngRepeat: (id, data) in inside.individual --><div ng-repeat="(id, data) in inside.individual" class="col-xs-12 col-md-6 ng-scope">
+					<div class="thermo-room thermo-component">
+						<div class="thermo-room--status color-bg-green"></div>
+						<div class="thermo-room--label ng-binding">Entrance <span class="ng-binding">(1)</span></div>
+						<div class="row">
+							<div class="col-xs-6">
+								<div class="thermo-room--temperature">
+									<i class="icon-thermometer6"></i>
+									<span ng-bind-html="data.temperature | float" class="ng-binding">21<span class="decimal">.3</span></span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="thermo-room--humidity ng-binding">
+									<i class="icon-humidity"></i>
+									45
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- end ngRepeat: (id, data) in inside.individual --><div ng-repeat="(id, data) in inside.individual" class="col-xs-12 col-md-6 ng-scope">
+					<div class="thermo-room thermo-component">
+						<div class="thermo-room--status color-bg-green"></div>
+						<div class="thermo-room--label ng-binding">Small bedroom <span class="ng-binding">(2)</span></div>
+						<div class="row">
+							<div class="col-xs-6">
+								<div class="thermo-room--temperature">
+									<i class="icon-thermometer6"></i>
+									<span ng-bind-html="data.temperature | float" class="ng-binding">21<span class="decimal">.2</span></span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="thermo-room--humidity ng-binding">
+									<i class="icon-humidity"></i>
+									45
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- end ngRepeat: (id, data) in inside.individual --><div ng-repeat="(id, data) in inside.individual" class="col-xs-12 col-md-6 ng-scope">
+					<div class="thermo-room thermo-component">
+						<div class="thermo-room--status color-bg-green"></div>
+						<div class="thermo-room--label ng-binding">Living <span class="ng-binding">(3)</span></div>
+						<div class="row">
+							<div class="col-xs-6">
+								<div class="thermo-room--temperature">
+									<i class="icon-thermometer6"></i>
+									<span ng-bind-html="data.temperature | float" class="ng-binding">21<span class="decimal">.3</span></span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="thermo-room--humidity ng-binding">
+									<i class="icon-humidity"></i>
+									44
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- end ngRepeat: (id, data) in inside.individual --><div ng-repeat="(id, data) in inside.individual" class="col-xs-12 col-md-6 ng-scope">
+					<div class="thermo-room thermo-component">
+						<div class="thermo-room--status color-bg-green"></div>
+						<div class="thermo-room--label ng-binding">Large bedroom <span class="ng-binding">(4)</span></div>
+						<div class="row">
+							<div class="col-xs-6">
+								<div class="thermo-room--temperature">
+									<i class="icon-thermometer6"></i>
+									<span ng-bind-html="data.temperature | float" class="ng-binding">20<span class="decimal">.9</span></span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div class="thermo-room--humidity ng-binding">
+									<i class="icon-humidity"></i>
+									45
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- end ngRepeat: (id, data) in inside.individual -->
+			</div>
+		</div>
+
+		<div class="col-xs-12">
+			<div class="thermo-component thermo-plan--horizontal">
+				<h3 class="ng-binding">At home whole day</h3>
+
+				<div class="thermo-plan--current-time ng-binding" ng-class="{'thermo-plan--last-part': percentInDay > 80}" style="left: 78.05555555555556%;">
+					18:44
+				</div>
+
+				<div class="thermo-plan--chart clearfix">
+					<!-- ngRepeat: interval in todaysPlan.plan.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-gray" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 27.083333333333332%;" ng-repeat="interval in todaysPlan.plan.ref.intervals | filter:blockPosition">
+						<i class="icon-night"></i>
+					</div><!-- end ngRepeat: interval in todaysPlan.plan.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-olive" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 69.79166666666667%;" ng-repeat="interval in todaysPlan.plan.ref.intervals | filter:blockPosition">
+						<i class="icon-sun"></i>
+					</div><!-- end ngRepeat: interval in todaysPlan.plan.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-gray last-child" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 3.125%;" ng-repeat="interval in todaysPlan.plan.ref.intervals | filter:blockPosition">
+						<i class="icon-night"></i>
+					</div><!-- end ngRepeat: interval in todaysPlan.plan.ref.intervals | filter:blockPosition -->
+					<div class="thermo-plan--pointer color-bg-olive" style="left: 78.05555555555556%;"></div>
+				</div>
+
+				<div class="thermo-plan--labels">
+					<!-- ngRepeat: interval in todaysPlan.plan.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope thermo-plan--label--first" ng-repeat="interval in todaysPlan.plan.ref.intervals" ng-class="{'thermo-plan--label--first': todaysPlan.plan.ref.intervals.indexOf(interval) === 0}" style="left: 0%"></div><!-- end ngRepeat: interval in todaysPlan.plan.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in todaysPlan.plan.ref.intervals" ng-class="{'thermo-plan--label--first': todaysPlan.plan.ref.intervals.indexOf(interval) === 0}" style="left: 27.083333333333332%">06:30</div><!-- end ngRepeat: interval in todaysPlan.plan.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in todaysPlan.plan.ref.intervals" ng-class="{'thermo-plan--label--first': todaysPlan.plan.ref.intervals.indexOf(interval) === 0}" style="left: 96.875%">23:15</div><!-- end ngRepeat: interval in todaysPlan.plan.ref.intervals -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade ng-scope" id="heating-config" tabindex="-1" role="dialog" aria-labelledby="heating-config">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title" id="heating-config-label">Settings</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-12">
+						<h2>Temperature settings</h2>
+						<div class="thermo-temps row">
+							<!-- ngRepeat: temp in temps --><div class="thermo-temps--temp col-xs-6 col-md-4 col-lg-3 ng-scope" ng-repeat="temp in temps">
+								<div class="color-olive">
+									<i class="icon-sun"></i> <span class="thermo-temps--temp-name ng-binding"></span>
+									<div class="thermo-temps--temp-control" data-id="0">
+										<button type="button" class="thermo-temps--temp-button thermo-temps--temp--decrease" ng-click="scope().tempAdjust(temp.ref._id, -0.1)">-</button>
+										<span class="thermo-temps--temp-value"><span ng-bind-html="temp.ref.value | float" class="ng-binding">21<span class="decimal">.0</span></span> °C</span>
+										<button type="button" class="thermo-temps--temp-button thermo-temps--temp--increase" ng-click="scope().tempAdjust(temp.ref._id, 0.1)">+</button>
+									</div>
+								</div>
+							</div><!-- end ngRepeat: temp in temps --><div class="thermo-temps--temp col-xs-6 col-md-4 col-lg-3 ng-scope" ng-repeat="temp in temps">
+								<div class="color-gray">
+									<i class="icon-night"></i> <span class="thermo-temps--temp-name ng-binding"></span>
+									<div class="thermo-temps--temp-control" data-id="1">
+										<button type="button" class="thermo-temps--temp-button thermo-temps--temp--decrease" ng-click="scope().tempAdjust(temp.ref._id, -0.1)">-</button>
+										<span class="thermo-temps--temp-value"><span ng-bind-html="temp.ref.value | float" class="ng-binding">20<span class="decimal">.5</span></span> °C</span>
+										<button type="button" class="thermo-temps--temp-button thermo-temps--temp--increase" ng-click="scope().tempAdjust(temp.ref._id, 0.1)">+</button>
+									</div>
+								</div>
+							</div><!-- end ngRepeat: temp in temps --><div class="thermo-temps--temp col-xs-6 col-md-4 col-lg-3 ng-scope" ng-repeat="temp in temps">
+								<div class="color-orange">
+									<i class="icon-away"></i> <span class="thermo-temps--temp-name ng-binding"></span>
+									<div class="thermo-temps--temp-control" data-id="2">
+										<button type="button" class="thermo-temps--temp-button thermo-temps--temp--decrease" ng-click="scope().tempAdjust(temp.ref._id, -0.1)">-</button>
+										<span class="thermo-temps--temp-value"><span ng-bind-html="temp.ref.value | float" class="ng-binding">20<span class="decimal">.0</span></span> °C</span>
+										<button type="button" class="thermo-temps--temp-button thermo-temps--temp--increase" ng-click="scope().tempAdjust(temp.ref._id, 0.1)">+</button>
+									</div>
+								</div>
+							</div><!-- end ngRepeat: temp in temps --><div class="thermo-temps--temp col-xs-6 col-md-4 col-lg-3 ng-scope" ng-repeat="temp in temps">
+								<div class="color-red">
+									<i class="icon-holiday"></i> <span class="thermo-temps--temp-name ng-binding"></span>
+									<div class="thermo-temps--temp-control" data-id="3">
+										<button type="button" class="thermo-temps--temp-button thermo-temps--temp--decrease" ng-click="scope().tempAdjust(temp.ref._id, -0.1)">-</button>
+										<span class="thermo-temps--temp-value"><span ng-bind-html="temp.ref.value | float" class="ng-binding">17<span class="decimal">.5</span></span> °C</span>
+										<button type="button" class="thermo-temps--temp-button thermo-temps--temp--increase" ng-click="scope().tempAdjust(temp.ref._id, 0.1)">+</button>
+									</div>
+								</div>
+							</div><!-- end ngRepeat: temp in temps -->
+						</div>
+					</div>
+
+					<div class="col-xs-12">
+						<h2>Plan for the week</h2>
+						<div class="thermo-default-plans clearfix">
+							<!-- ngRepeat: defaultPlan in heatingDefaultPlans --><!-- ngIf: defaultPlan.dayOfWeek > 0 --><!-- end ngRepeat: defaultPlan in heatingDefaultPlans --><!-- ngIf: defaultPlan.dayOfWeek > 0 --><div class="thermo-default-plans--plan ng-scope" ng-repeat="defaultPlan in heatingDefaultPlans" ng-if="defaultPlan.dayOfWeek > 0" data-toggle="modal" data-target=".thermo-select-plan--modal" data-default-week-plan="1">
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full ng-binding">Monday</div>
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr ng-binding">Mo</div>
+
+								<i class="icon-work"></i>
+							</div><!-- end ngIf: defaultPlan.dayOfWeek > 0 --><!-- end ngRepeat: defaultPlan in heatingDefaultPlans --><!-- ngIf: defaultPlan.dayOfWeek > 0 --><div class="thermo-default-plans--plan ng-scope" ng-repeat="defaultPlan in heatingDefaultPlans" ng-if="defaultPlan.dayOfWeek > 0" data-toggle="modal" data-target=".thermo-select-plan--modal" data-default-week-plan="2">
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full ng-binding">Tuesday</div>
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr ng-binding">Tu</div>
+
+								<i class="icon-house"></i>
+							</div><!-- end ngIf: defaultPlan.dayOfWeek > 0 --><!-- end ngRepeat: defaultPlan in heatingDefaultPlans --><!-- ngIf: defaultPlan.dayOfWeek > 0 --><div class="thermo-default-plans--plan ng-scope" ng-repeat="defaultPlan in heatingDefaultPlans" ng-if="defaultPlan.dayOfWeek > 0" data-toggle="modal" data-target=".thermo-select-plan--modal" data-default-week-plan="3">
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full ng-binding">Wednesday</div>
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr ng-binding">We</div>
+
+								<i class="icon-house"></i>
+							</div><!-- end ngIf: defaultPlan.dayOfWeek > 0 --><!-- end ngRepeat: defaultPlan in heatingDefaultPlans --><!-- ngIf: defaultPlan.dayOfWeek > 0 --><div class="thermo-default-plans--plan ng-scope" ng-repeat="defaultPlan in heatingDefaultPlans" ng-if="defaultPlan.dayOfWeek > 0" data-toggle="modal" data-target=".thermo-select-plan--modal" data-default-week-plan="4">
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full ng-binding">Thursday</div>
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr ng-binding">Th</div>
+
+								<i class="icon-work"></i>
+							</div><!-- end ngIf: defaultPlan.dayOfWeek > 0 --><!-- end ngRepeat: defaultPlan in heatingDefaultPlans --><!-- ngIf: defaultPlan.dayOfWeek > 0 --><div class="thermo-default-plans--plan ng-scope" ng-repeat="defaultPlan in heatingDefaultPlans" ng-if="defaultPlan.dayOfWeek > 0" data-toggle="modal" data-target=".thermo-select-plan--modal" data-default-week-plan="5">
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full ng-binding">Friday</div>
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr ng-binding">Fr</div>
+
+								<i class="icon-house"></i>
+							</div><!-- end ngIf: defaultPlan.dayOfWeek > 0 --><!-- end ngRepeat: defaultPlan in heatingDefaultPlans --><!-- ngIf: defaultPlan.dayOfWeek > 0 --><div class="thermo-default-plans--plan ng-scope" ng-repeat="defaultPlan in heatingDefaultPlans" ng-if="defaultPlan.dayOfWeek > 0" data-toggle="modal" data-target=".thermo-select-plan--modal" data-default-week-plan="6">
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full ng-binding">Saturday</div>
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr ng-binding">Sa</div>
+
+								<i class="icon-house"></i>
+							</div><!-- end ngIf: defaultPlan.dayOfWeek > 0 --><!-- end ngRepeat: defaultPlan in heatingDefaultPlans -->
+
+							<div class="thermo-default-plans--plan" data-toggle="modal" data-target=".thermo-select-plan--modal" data-default-week-plan="0">
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-full ng-binding">Sunday</div>
+								<div class="thermo-default-plans--day-name thermo-default-plans--day-name-abbr ng-binding">Su</div>
+
+								<i class="icon-house"></i>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-xs-12">
+						<h2>Calendar</h2>
+
+						<!-- Responsive calendar - START -->
+						<div class="responsive-calendar">
+							<div class="controls">
+								<a class="pull-left" data-go="prev"><div class="btn btn-primary">Prev</div></a>
+								<h4>
+									<span data-head-year=""></span>
+									<span data-head-month=""></span>
+								</h4>
+								<a class="pull-right" data-go="next"><div class="btn btn-primary">Next</div></a>
+							</div>
+							<hr>
+							<div class="day-headers">
+								<div class="day header">Mon</div>
+								<div class="day header">Tue</div>
+								<div class="day header">Wed</div>
+								<div class="day header">Thu</div>
+								<div class="day header">Fri</div>
+								<div class="day header">Sat</div>
+								<div class="day header">Sun</div>
+							</div>
+							<div class="days" data-group="days" data-toggle="modal" data-target=".thermo-select-plan--modal">
+
+							</div>
+						</div>
+						<!-- Responsive calendar - END -->
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="thermo-select-plan--modal modal fade ng-scope" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title">Select plan</h4>
+			</div>
+			<div class="modal-body">
+				<!-- ngRepeat: planToChoose in heatingPlans --><div ng-repeat="planToChoose in heatingPlans" class="thermo-component ng-scope" ng-click="selectPlan(planToChoose.ref._id)">
+					<div class="row">
+						<div class="col-xs-3">
+							<div class="thermo-select-plan--icon">
+								<i class="icon-house"></i>
+							</div>
+						</div>
+						<div class="col-xs-9 ng-binding">
+							At home whole day
+							<div class="thermo-plan--horizontal">
+								<div class="thermo-plan--chart clearfix">
+									<!-- ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-gray" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 27.083333333333332%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-night"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-olive" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 69.79166666666667%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-sun"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-gray last-child" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 3.125%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-night"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition -->
+								</div>
+
+								<div class="thermo-plan--labels">
+									<!-- ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 0%"></div><!-- end ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 27.083333333333332%">06:30</div><!-- end ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 96.875%">23:15</div><!-- end ngRepeat: interval in planToChoose.ref.intervals -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- end ngRepeat: planToChoose in heatingPlans --><div ng-repeat="planToChoose in heatingPlans" class="thermo-component ng-scope" ng-click="selectPlan(planToChoose.ref._id)">
+					<div class="row">
+						<div class="col-xs-3">
+							<div class="thermo-select-plan--icon">
+								<i class="icon-work"></i>
+							</div>
+						</div>
+						<div class="col-xs-9 ng-binding">
+							Workday
+							<div class="thermo-plan--horizontal">
+								<div class="thermo-plan--chart clearfix">
+									<!-- ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-gray" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 27.083333333333332%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-night"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-olive" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 10.416666666666668%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-sun"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-orange" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 37.5%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-away"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-olive" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 21.875%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-sun"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-gray" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 3.125%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-night"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition -->
+								</div>
+
+								<div class="thermo-plan--labels">
+									<!-- ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 0%"></div><!-- end ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 27.083333333333332%">06:30</div><!-- end ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 37.5%">09:00</div><!-- end ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 75%">18:00</div><!-- end ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 96.875%">23:15</div><!-- end ngRepeat: interval in planToChoose.ref.intervals -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- end ngRepeat: planToChoose in heatingPlans --><div ng-repeat="planToChoose in heatingPlans" class="thermo-component ng-scope" ng-click="selectPlan(planToChoose.ref._id)">
+					<div class="row">
+						<div class="col-xs-3">
+							<div class="thermo-select-plan--icon">
+								<i class="icon-house-2"></i>
+							</div>
+						</div>
+						<div class="col-xs-9 ng-binding">
+							Going on holiday
+							<div class="thermo-plan--horizontal">
+								<div class="thermo-plan--chart clearfix">
+									<!-- ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-gray" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 29.166666666666668%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-night"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-olive" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 20.833333333333332%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-sun"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-red" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 50%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-holiday"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition -->
+								</div>
+
+								<div class="thermo-plan--labels">
+									<!-- ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 0%"></div><!-- end ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 29.166666666666668%">07:00</div><!-- end ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 50%">12:00</div><!-- end ngRepeat: interval in planToChoose.ref.intervals -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- end ngRepeat: planToChoose in heatingPlans --><div ng-repeat="planToChoose in heatingPlans" class="thermo-component ng-scope" ng-click="selectPlan(planToChoose.ref._id)">
+					<div class="row">
+						<div class="col-xs-3">
+							<div class="thermo-select-plan--icon">
+								<i class="icon-house-1"></i>
+							</div>
+						</div>
+						<div class="col-xs-9 ng-binding">
+							Arriving home from holiday
+							<div class="thermo-plan--horizontal">
+								<div class="thermo-plan--chart clearfix">
+									<!-- ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-red" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 62.5%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-holiday"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-olive" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 34.375%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-sun"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-gray" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 3.125%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-night"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition -->
+								</div>
+
+								<div class="thermo-plan--labels">
+									<!-- ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 0%"></div><!-- end ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 62.5%">15:00</div><!-- end ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 96.875%">23:15</div><!-- end ngRepeat: interval in planToChoose.ref.intervals -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- end ngRepeat: planToChoose in heatingPlans --><div ng-repeat="planToChoose in heatingPlans" class="thermo-component ng-scope" ng-click="selectPlan(planToChoose.ref._id)">
+					<div class="row">
+						<div class="col-xs-3">
+							<div class="thermo-select-plan--icon">
+								<i class="icon-holiday"></i>
+							</div>
+						</div>
+						<div class="col-xs-9 ng-binding">
+							On holiday
+							<div class="thermo-plan--horizontal">
+								<div class="thermo-plan--chart clearfix">
+									<!-- ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition --><div class="thermo-plan--period color-red" ng-class="{'last-child': todaysPlan.plan.ref.intervals.indexOf(interval) === todaysPlan.plan.ref.intervals.length - 1}" style="width: 100%;" ng-repeat="interval in planToChoose.ref.intervals | filter:blockPosition">
+										<i class="icon-holiday"></i>
+									</div><!-- end ngRepeat: interval in planToChoose.ref.intervals | filter:blockPosition -->
+								</div>
+
+								<div class="thermo-plan--labels">
+									<!-- ngRepeat: interval in planToChoose.ref.intervals --><div class="thermo-plan--label ng-binding ng-scope" ng-repeat="interval in planToChoose.ref.intervals" style="left: 0%"></div><!-- end ngRepeat: interval in planToChoose.ref.intervals -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div><!-- end ngRepeat: planToChoose in heatingPlans -->
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade security-keypad--modal ng-scope" id="security-keypad-modal" tabindex="-1" role="dialog" aria-labelledby="security-keypad">
+	<div class="modal-dialog modal-md" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+				<h4 class="modal-title" id="security-keypad-label">Passcode</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-12">
+						 <div class="form-group">
+							<input type="password" class="form-control" id="security-passcode" placeholder="Passcode" disabled="" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGP6zwAAAgcBApocMXEAAAAASUVORK5CYII=&quot;);">
+						</div>
+					</div>
+				</div>
+				<!-- ngRepeat: row in [0,1,2] --><div class="row keypad-row ng-scope" ng-repeat="row in [0,1,2]">
+					<!-- ngRepeat: number in [1,2,3] --><div class="col-xs-4 ng-scope" ng-repeat="number in [1,2,3]">
+						<button type="button" data-value="1" class="col-xs-12 btn btn-default btn-lg ng-binding">1</button>
+					</div><!-- end ngRepeat: number in [1,2,3] --><div class="col-xs-4 ng-scope" ng-repeat="number in [1,2,3]">
+						<button type="button" data-value="2" class="col-xs-12 btn btn-default btn-lg ng-binding">2</button>
+					</div><!-- end ngRepeat: number in [1,2,3] --><div class="col-xs-4 ng-scope" ng-repeat="number in [1,2,3]">
+						<button type="button" data-value="3" class="col-xs-12 btn btn-default btn-lg ng-binding">3</button>
+					</div><!-- end ngRepeat: number in [1,2,3] -->
+				</div><!-- end ngRepeat: row in [0,1,2] --><div class="row keypad-row ng-scope" ng-repeat="row in [0,1,2]">
+					<!-- ngRepeat: number in [1,2,3] --><div class="col-xs-4 ng-scope" ng-repeat="number in [1,2,3]">
+						<button type="button" data-value="4" class="col-xs-12 btn btn-default btn-lg ng-binding">4</button>
+					</div><!-- end ngRepeat: number in [1,2,3] --><div class="col-xs-4 ng-scope" ng-repeat="number in [1,2,3]">
+						<button type="button" data-value="5" class="col-xs-12 btn btn-default btn-lg ng-binding">5</button>
+					</div><!-- end ngRepeat: number in [1,2,3] --><div class="col-xs-4 ng-scope" ng-repeat="number in [1,2,3]">
+						<button type="button" data-value="6" class="col-xs-12 btn btn-default btn-lg ng-binding">6</button>
+					</div><!-- end ngRepeat: number in [1,2,3] -->
+				</div><!-- end ngRepeat: row in [0,1,2] --><div class="row keypad-row ng-scope" ng-repeat="row in [0,1,2]">
+					<!-- ngRepeat: number in [1,2,3] --><div class="col-xs-4 ng-scope" ng-repeat="number in [1,2,3]">
+						<button type="button" data-value="7" class="col-xs-12 btn btn-default btn-lg ng-binding">7</button>
+					</div><!-- end ngRepeat: number in [1,2,3] --><div class="col-xs-4 ng-scope" ng-repeat="number in [1,2,3]">
+						<button type="button" data-value="8" class="col-xs-12 btn btn-default btn-lg ng-binding">8</button>
+					</div><!-- end ngRepeat: number in [1,2,3] --><div class="col-xs-4 ng-scope" ng-repeat="number in [1,2,3]">
+						<button type="button" data-value="9" class="col-xs-12 btn btn-default btn-lg ng-binding">9</button>
+					</div><!-- end ngRepeat: number in [1,2,3] -->
+				</div><!-- end ngRepeat: row in [0,1,2] -->
+
+				<div class="row keypad-row">
+					<div class="col-xs-4">
+						<button type="button" data-value="Delete" class="col-xs-12 btn btn-default btn-lg">Del</button>
+					</div>
+
+					<div class="col-xs-4">
+						<button type="button" data-value="0" class="col-xs-12 btn btn-default btn-lg">0</button>
+					</div>
+
+					<div class="col-xs-4">
+						<button type="button" data-value="Backspace" class="col-xs-12 btn btn-default btn-lg">Clr</button>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+
+</body>
+</html>
