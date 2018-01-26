@@ -47,7 +47,7 @@
 					<div class="thermo-status--inside">
 						<i class="icon-house-simple thermo-status--house-icon color-{{security === SECURITY_STATUSES.PREACTIVATED ? 'orange' : security === SECURITY_STATUSES.ACTIVATED ? 'red' : 'dark-gray'}}"></i>
 
-						<i class="icon-air-conditioner-3 thermo-status--icon color-{{isHeatingOn ? 'olive' : 'dark-gray'}}"></i>
+						<i class="icon-air-conditioner-3 thermo-status--icon color-{{isHeatingOn ? 'olive' : 'gray'}}"></i>
 						<i class="icon-{{security === SECURITY_STATUSES.ARMED ? 'padlock-closed' : 'padlock-open'}} thermo-status--icon-lock color-{{SECURITY_ARMED_STATUSES.includes(security) ? 'red' : security === SECURITY_STATUSES.ARMING ? 'orange' : 'green'}}" ng-click="scope().securityToggleAlarm()"></i>
 						<div class="thermo-status--value thermo-status--temp">
 							<i class="icon-thermometer6"></i> <span ng-bind-html="inside.temp | float"></span>
