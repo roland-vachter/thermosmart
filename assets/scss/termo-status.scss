@@ -82,11 +82,13 @@
 
 .thermo-room {
 	font-size: 3rem;
+	position: relative;
 }
 
 .thermo-room--label {
 	text-align: center;
 	font-size: 1.8rem;
+	cursor: pointer;
 
 	span {
 		font-size: 1.5rem;
@@ -104,11 +106,36 @@
 	color: $aqua;
 }
 
+.thermo-room--disabled .thermo-room--humidity,
+.thermo-room--disabled .thermo-room--temperature {
+	color: $gray;
+}
+
 .thermo-room--status {
-	float: right;
-	width: 10px;
-	height: 10px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 12px;
+	height: 12px;
 	border-radius: 99px;
+}
+
+.thermo-room:hover .thermo-room--status {
+	display: none;
+}
+
+.thermo-room--switch {
+	display: none;
+}
+
+.thermo-room:hover .thermo-room--switch {
+	display: block;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	font-size: 1.3rem;
+	color: $dark-gray;
+	cursor: pointer;
 }
 
 .thermo-status--run-duration {

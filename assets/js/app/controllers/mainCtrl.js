@@ -101,13 +101,6 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 	$scope.initInProgress = false;
 	$scope.restartSensorInProgress = false;
 
-	$scope.roomIdToLabel = {
-		1: 'Entrance',
-		2: 'Small bedroom',
-		3: 'Living',
-		4: 'Large bedroom'
-	};
-
 	const dayNameByIndex = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 	$scope.statisticsModalOpen = () => {
@@ -116,6 +109,33 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 			controller: 'modalStatisticsCtrl',
 			size: 'lg'
 		}).result.then(() => {}, () => {});
+	};
+
+	$scope.openModalChangeSensorLabel = (id) => {
+		$uibModal.open({
+			templateUrl: 'views/change-sensor-label.html',
+			controller: 'modalSensorLabelCtrl',
+			size: 'sm',
+			resolve: {
+				content: () => {
+					return {
+						id: id,
+						label: $scope.inside.individual[id].label
+					};
+				}
+			}
+		}).result.then((results) => {
+			$http.post('/api/changesensorlabel', {
+				id: results.id,
+				label: results.label || $scope.inside.individual[id].label
+			});
+		}, () => {});
+	};
+
+	$scope.toggleSensorStatus = (id) => {
+		$http.post('/api/togglesensorstatus', {
+			id
+		});
 	};
 
 
@@ -144,7 +164,7 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 
 			let activeCount = 0;
 			ids.forEach(id => {
-				if (data.inside[id].active) {
+				if (data.inside[id].active && data.inside[id].enabled) {
 					$scope.inside.temp += data.inside[id].temperature;
 					$scope.inside.humi += data.inside[id].humidity;
 
