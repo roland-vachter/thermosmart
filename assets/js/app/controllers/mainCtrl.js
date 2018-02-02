@@ -152,7 +152,7 @@ module.controller('mainCtrl', ['$scope', '$http', '$uibModal', 'socketio', 'logi
 			$scope.outside.weatherIconClass = data.outside.weatherIconClass;
 
 			if (data.outside.backgroundImage) {
-				document.body.backgroundImage = document.body.style.backgroundImage.substring(0, document.body.style.backgroundImage.lastIndexOf('/') + 1) + data.outside.backgroundImage;
+				document.body.style.backgroundImage = document.body.style.backgroundImage.substring(0, document.body.style.backgroundImage.lastIndexOf('/') + 1) + data.outside.backgroundImage;
 			}
 		}
 
