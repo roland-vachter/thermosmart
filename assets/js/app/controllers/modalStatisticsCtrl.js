@@ -90,6 +90,27 @@ module.controller('modalStatisticsCtrl', ['$scope', '$http', 'loginStatus', func
 					}]
 				},
 				options: {
+					tooltips: {
+						mode: 'x',
+						intersect: true,
+						callbacks: {
+							label: function(tooltipItem, data) {
+								switch (tooltipItem.datasetIndex) {
+									case 0:
+										let str = '';
+										const duration = moment.duration(tooltipItem.yLabel * 60 * 1000);
+
+										str += `${duration.hours() || 0}h `;
+										str += `${duration.minutes() || 0}m`;
+
+										return `${data.datasets[tooltipItem.datasetIndex].label}: ${str.trim()}`;
+									case 1:
+									case 2:
+										return `${data.datasets[tooltipItem.datasetIndex].label}: ${tooltipItem.yLabel.toFixed(1)}`;
+								}
+							}
+						}
+					},
 					scales: {
 						xAxes: [{
 							type: 'time',
@@ -123,24 +144,14 @@ module.controller('modalStatisticsCtrl', ['$scope', '$http', 'loginStatus', func
 
 									return str.trim();
 								},
-								fixedStepSize: 30,
+								fixedStepSize: 60,
 								min: 0
-							},
-							tooltipFormat: value => {
-								let str = '';
-
-								const duration = moment.duration(value * 60 * 1000);
-
-								str += `${duration.hours() || 0}h `;
-								str += `${duration.minutes() || 0}m`;
-
-								return str.trim();
 							}
 						}, {
 							id: "temp",
 							ticks: {
 								callback: value => value,
-								fixedStepSize: 1,
+								fixedStepSize: 2,
 								min: Math.floor(Math.min(minTargetTemp, minAvgOutsideTemp)),
 								max: Math.ceil(Math.max(maxTargetTemp, maxAvgOutsideTemp))
 							}
@@ -231,6 +242,27 @@ module.controller('modalStatisticsCtrl', ['$scope', '$http', 'loginStatus', func
 					}]
 				},
 				options: {
+					tooltips: {
+						mode: 'x',
+						intersect: true,
+						callbacks: {
+							label: function(tooltipItem, data) {
+								switch (tooltipItem.datasetIndex) {
+									case 0:
+										let str = '';
+										const duration = moment.duration(tooltipItem.yLabel * 60 * 1000);
+
+										str += `${duration.hours() || 0}h `;
+										str += `${duration.minutes() || 0}m`;
+
+										return `${data.datasets[tooltipItem.datasetIndex].label}: ${str.trim()}`;
+									case 1:
+									case 2:
+										return `${data.datasets[tooltipItem.datasetIndex].label}: ${tooltipItem.yLabel.toFixed(1)}`;
+								}
+							}
+						}
+					},
 					scales: {
 						xAxes: [{
 							type: 'time',
@@ -264,18 +296,8 @@ module.controller('modalStatisticsCtrl', ['$scope', '$http', 'loginStatus', func
 
 									return str.trim();
 								},
-								fixedStepSize: 30,
+								fixedStepSize: 60,
 								min: 0
-							},
-							tooltipFormat: value => {
-								let str = '';
-
-								const duration = moment.duration(value * 60 * 1000);
-
-								str += `${duration.hours() || 0}h `;
-								str += `${duration.minutes() || 0}m`;
-
-								return str.trim();
 							}
 						}, {
 							id: "temp",
@@ -323,6 +345,19 @@ module.controller('modalStatisticsCtrl', ['$scope', '$http', 'loginStatus', func
 					}]
 				},
 				options: {
+					tooltips: {
+						mode: 'x',
+						intersect: true,
+						callbacks: {
+							label: function(tooltipItem, data) {
+								if (tooltipItem.yLabel === 10) {
+									return `${data.datasets[tooltipItem.datasetIndex].label}: ON`;
+								} else {
+									return `${data.datasets[tooltipItem.datasetIndex].label}: OFF`;
+								}
+							}
+						}
+					},
 					scales: {
 						xAxes: [{
 							type: 'time',
@@ -346,7 +381,7 @@ module.controller('modalStatisticsCtrl', ['$scope', '$http', 'loginStatus', func
 						yAxes: [{
 							ticks: {
 								callback: function(value) {
-									return value === 0 ? 'Off' : value === 10 ? 'On' : '';
+									return value === 0 ? 'OFF' : value === 10 ? 'ON' : '';
 								},
 								fixedStepSize: 1,
 								min: 0,
