@@ -13,6 +13,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-connected-device:before {
+  content: "\ea46";
+}
+.icon-radio:before {
+  content: "\ea47";
+}
+.icon-sensor:before {
+  content: "\ea48";
+}
+.icon-wifi:before {
+  content: "\ea49";
+}
+.icon-wifi2:before {
+  content: "\ea4a";
+}
 .icon-tap:before {
   content: "\ea45";
 }

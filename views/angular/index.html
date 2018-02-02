@@ -48,7 +48,7 @@
 						<i class="icon-house-simple thermo-status--house-icon color-{{security === SECURITY_STATUSES.PREACTIVATED ? 'orange' : security === SECURITY_STATUSES.ACTIVATED ? 'red' : 'dark-gray'}}"></i>
 
 						<i class="icon-air-conditioner-3 thermo-status--icon color-{{isHeatingOn ? 'olive' : 'gray'}}"></i>
-						<i class="icon-{{security === SECURITY_STATUSES.ARMED ? 'padlock-closed' : 'padlock-open'}} thermo-status--icon-lock color-{{SECURITY_ARMED_STATUSES.includes(security) ? 'red' : security === SECURITY_STATUSES.ARMING ? 'orange' : 'green'}}" ng-click="scope().securityToggleAlarm()"></i>
+						<i class="icon-{{security === SECURITY_STATUSES.ARMED ? 'padlock-closed' : 'padlock-open'}} thermo-status--icon-lock color-{{SECURITY_ARMED_STATUSES.includes(security) ? 'red' : security === SECURITY_STATUSES.ARMING ? 'orange' : 'mint'}}" ng-click="scope().securityToggleAlarm()"></i>
 						<div class="thermo-status--value thermo-status--temp">
 							<i class="icon-thermometer6"></i> <span ng-bind-html="inside.temp | float"></span>
 						</div>
@@ -77,9 +77,11 @@
 			<div class="row">
 				<div ng-repeat="(id, data) in inside.individual" class="col-xs-12 col-md-6">
 					<div class="thermo-room thermo-component" ng-class="{'thermo-room--disabled': !data.enabled}">
-						<div class="thermo-room--status color-bg-{{scope().restartSensorInProgress ? 'yellow' : (!data.enabled ? 'gray' : data.active ? 'green' : 'red')}}"></div>
+						<div class="thermo-room--status icon-wifi color-{{scope().restartSensorInProgress ? 'yellow' : (!data.enabled ? 'gray' : data.active ? 'mint' : 'red')}}"></div>
 						<i class="thermo-room--switch icon-power-button" ng-click="scope().toggleSensorStatus(id)"></i>
-						<div class="thermo-room--label" ng-click="scope().openModalChangeSensorLabel(id)">{{data.label || id}} <span>({{id}})</span></div>
+						<div class="thermo-room--label" ng-click="scope().openModalChangeSensorLabel(id)">
+							{{data.label || id}} <span>({{id}})</span>
+						</div>
 						<div class="row">
 							<div class="col-xs-6">
 								<div class="thermo-room--temperature">
@@ -216,7 +218,7 @@
 				<h4 class="modal-title">Select plan</h4>
 			</div>
 			<div class="modal-body">
-				<div ng-repeat="planToChoose in heatingPlans" class="thermo-component" ng-click="selectPlan(planToChoose.ref._id)">
+				<div ng-repeat="planToChoose in heatingPlans" class="thermo-component" ng-class="{'thermo-select-plan--selected': todaysPlan.plan.ref._id === planToChoose.ref._id}" ng-click="selectPlan(planToChoose.ref._id)">
 					<div class="row">
 						<div class="col-xs-3">
 							<div class="thermo-select-plan--icon">

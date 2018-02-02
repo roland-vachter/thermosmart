@@ -1,40 +1,58 @@
 $navy: #001f3f;
-$blue: #0074d9;
+$blue: #4096EE;
+$light-blue: #C3D9FF;
 $aqua: #7fdbff;
 $teal: #39cccc;
-$olive: #3d9970;
+$olive: #73880a;
+$dark-olive: #556B2F;
 $green: #2ecc40;
 $lime: #01ff70;
+$mint: #abc969;
 $yellow: #ffdc00;
+$gold: #c79810;
+$vermillion: #D15600;
 $orange: #ff851b;
 $red: #ff4136;
+$crimson: #B02B2C;
+$sienna: #A0522D;
 $fuchsia: #f012be;
 $purple: #b10dc9;
 $maroon: #85144b;
+$magnolia: #F9F7ED;
 $white: #fff;
 $silver: #ddd;
 $gray: #aaa;
 $dark-gray: #666;
+$light-gray: #fafafa;
 $black: #111;
 
 $colors: (
 	"navy": $navy,
 	"blue": $blue,
+	"light-blue": $light-blue,
 	"aqua": $aqua,
 	"teal": $teal,
 	"olive": $olive,
+	"dark-olive": $dark-olive,
 	"green": $green,
 	"lime": $lime,
+	"mint": $mint,
 	"yellow": $yellow,
+	"vermillion": $vermillion,
+	"gold": $gold,
 	"orange": $orange,
 	"red": $red,
+	"crimson": $crimson,
+	"sienna": $sienna,
 	"fuchsia": $fuchsia,
 	"purple": $purple,
 	"maroon": $maroon,
+	"magnolia": $magnolia,
 	"white": $white,
 	"silver": $silver,
 	"gray": $gray,
 	"dark-gray": $dark-gray,
+	"light-gray": $light-gray,
 	"black": $black
 );
 

@@ -14,10 +14,16 @@
 		border: 2px solid transparent;
 
 		&:hover {
-			border: 2px solid $aqua;
-			color: $aqua;
+			border: 2px solid $dark-gray;
+			color: $dark-gray;
 			cursor: pointer;
-			background: #fafafa;
+			background: $magnolia;
 		}
+	}
+
+	.thermo-select-plan--selected {
+		border: 2px solid $crimson;
+		color: $crimson;
+		background: $light-gray;
 	}
 }

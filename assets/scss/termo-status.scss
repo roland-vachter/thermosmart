@@ -37,7 +37,7 @@
 .thermo-status--inside {
 	position: relative;
 	display: inline-block;
-	margin-left: -10px;
+	margin-left: -14px;
 
 	.thermo-status--value {
 		position: absolute;
@@ -115,9 +115,7 @@
 	position: absolute;
 	right: 10px;
 	top: 10px;
-	width: 12px;
-	height: 12px;
-	border-radius: 99px;
+	font-size: 1.7rem;
 }
 
 .thermo-room:hover .thermo-room--status {
@@ -133,7 +131,7 @@
 	position: absolute;
 	right: 10px;
 	top: 10px;
-	font-size: 1.3rem;
+	font-size: 1.7rem;
 	color: $dark-gray;
 	cursor: pointer;
 }
